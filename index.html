@@ -25,9 +25,9 @@ body{ font-family:Arial, sans-serif; background:var(--bg); }
 }
 .login-box{ background:white; width:100%; max-width:360px; border-radius:20px; padding:25px; }
 .login-box h1{ text-align:center; color:var(--blue); margin-bottom:20px; }
-.login-box input{ width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:16px; }
+.login-box input{ width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:16px; outline:none; }
 .login-box button{ width:100%; padding:14px; border:none; border-radius:12px; background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer; }
-#error-msg{ text-align:center; margin-top:12px; display:none; font-size:14px; }
+#error-msg{ text-align:center; margin-top:12px; display:none; font-size:14px; font-weight:bold; }
 
 /* APP */
 #app{ display:none; }
@@ -133,7 +133,6 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
     <div class="login-box">
         <h1>🚌 Mala Pronta</h1>
@@ -144,7 +143,6 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </div>
 
-<!-- APP -->
 <div id="app">
 <header>
     <div class="top-header">
@@ -166,7 +164,6 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </header>
 
-<!-- INÍCIO -->
 <div id="inicio" class="page active">
     <h2 class="section-title">📊 Painel Geral</h2>
     <div class="home-cards">
@@ -188,13 +185,11 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </div>
 
-<!-- EXCURSÕES (lista) -->
 <div id="excursoes" class="page">
     <h2 class="section-title">🚌 Excursões</h2>
     <div id="lista-excursoes"><div class="empty">Nenhuma excursão cadastrada</div></div>
 </div>
 
-<!-- DETALHE EXCURSÃO -->
 <div id="detalhe-excursao">
     <div style="padding:16px 16px 0 16px; background:linear-gradient(135deg,#1565C0,#0D47A1);">
         <button class="back-btn" onclick="voltarExcursoes()">← Voltar</button>
@@ -207,23 +202,19 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </div>
 
-<!-- CLIENTES -->
 <div id="clientes" class="page">
     <h2 class="section-title">👥 Clientes</h2>
     <input type="text" id="busca-clientes" oninput="filtrarClientes()" placeholder="🔍 Buscar por nome ou CPF..." style="width:100%;padding:13px;border-radius:12px;border:1px solid #ddd;font-size:15px;margin-bottom:16px;background:#fff;">
     <div id="lista-clientes"><div class="empty">Carregando...</div></div>
 </div>
 
-<!-- DETALHE CLIENTE -->
 <div id="detalhe-cliente" style="display:none; padding:16px 16px 100px 16px;">
     <button style="background:var(--blue);color:white;border:none;border-radius:12px;padding:10px 18px;font-size:15px;font-weight:bold;cursor:pointer;margin-bottom:16px;" onclick="voltarClientes()">← Voltar</button>
     <div id="detalhe-cliente-conteudo"></div>
 </div>
 
-<!-- BOTÃO FLUTUANTE -->
 <button class="add-btn" id="add-btn-global" onclick="acaoBotao()">➕ Nova Excursão</button>
 
-<!-- MODAL NOVA/EDITAR EXCURSÃO -->
 <div class="modal-overlay hidden" id="modal-excursao">
     <div class="modal">
         <h2 id="modal-excursao-titulo">✏️ Excursão</h2>
@@ -252,7 +243,6 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </div>
 
-<!-- MODAL NOVO PASSAGEIRO -->
 <div class="modal-overlay hidden" id="modal-passageiro">
     <div class="modal">
         <h2>👤 Novo Passageiro</h2>
@@ -297,9 +287,7 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
     </div>
 </div>
 
-</div><!-- fim #app -->
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+</div><script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script>
@@ -331,17 +319,29 @@ auth.onAuthStateChanged(function(user){
     }
 });
 
-// ─── LOGIN ───
+// ─── LOGIN CORRIGIDO ───
 function fazerLogin(){
     var email = document.getElementById("email").value.trim();
     var senha = document.getElementById("senha").value;
     var errDiv = document.getElementById("error-msg");
+    
+    if(!email || !senha){
+        errDiv.style.display = "block";
+        errDiv.style.color = "red";
+        errDiv.innerText = "Por favor, digite seu e-mail e senha.";
+        return;
+    }
+
     errDiv.style.display = "block";
     errDiv.style.color = "#1565C0";
     errDiv.innerText = "Entrando...";
+
     auth.signInWithEmailAndPassword(email, senha)
-        .then(function(){ errDiv.style.display = "none"; })
-        .catch(function(e){
+        .then(function(){ 
+            errDiv.style.display = "none"; 
+        })
+        .catch(function(error){ // Ajustado o nome do parâmetro para bater com o bloco interno
+            errDiv.style.display = "block";
             errDiv.style.color = "red";
             var msgs = {
                 "auth/user-not-found":"Usuário não encontrado.",
@@ -351,7 +351,7 @@ function fazerLogin(){
                 "auth/too-many-requests":"Muitas tentativas. Tente mais tarde.",
                 "auth/network-request-failed":"Sem conexão."
             };
-            errDiv.innerText = msgs[e.code] || ("Erro: " + e.code);
+            errDiv.innerText = msgs[error.code] || ("Erro: " + error.code);
         });
 }
 
@@ -359,7 +359,6 @@ function logout(){ auth.signOut(); }
 
 // ─── NAVEGAÇÃO ───
 function trocarPagina(id, menuId){
-    // Esconde detalhe se estiver aberto
     var de = document.getElementById("detalhe-excursao");
     var dc = document.getElementById("detalhe-cliente");
     if(de) de.style.display = "none";
@@ -367,7 +366,7 @@ function trocarPagina(id, menuId){
     document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
     document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
     document.getElementById(id).classList.add("active");
-    document.getElementById(menuId).classList.add("active");
+    if(menuId) document.getElementById(menuId).classList.add("active");
     paginaAtual = id;
     atualizarBotao();
     if(id === 'clientes') carregarClientes();
@@ -381,8 +380,6 @@ function atualizarBotao(){
     } else if(paginaAtual === 'detalhe'){
         btn.innerText = "➕ Novo Passageiro";
         btn.style.display = "block";
-    } else if(paginaAtual === 'inicio'){
-        btn.style.display = "none";
     } else {
         btn.style.display = "none";
     }
@@ -414,445 +411,10 @@ function carregarExcursoes(){
             var d = doc.data();
             total++;
             renda += Number(d.valor || 0);
+            
+            var card = document.createElement("div");
+            card.className = "excursion-card";
+            
             promises.push(
                 db.collection("excursoes").doc(doc.id).collection("passageiros").get()
                 .then(function(pSnap){
-                    var qtd = pSnap.size;
-                    var poltronas = Number(d.poltronas || 0);
-                    var restantes = poltronas > 0 ? poltronas - qtd : "—";
-                    var dataFmt = d.data ? formatarData(d.data) : "—";
-                    lista.innerHTML += '<div class="excursion-card" onclick="abrirDetalhe(\'' + doc.id + '\')">'
-                        + '<div class="excursion-card-header">'
-                        +   '<div><h3>📍 ' + d.destino + '</h3>'
-                        +   '<p>📅 ' + dataFmt + '</p>'
-                        +   '<p>💰 R$ ' + Number(d.valor).toFixed(2) + '</p></div>'
-                        +   '<span class="excursion-badge">' + qtd + ' passageiros</span>'
-                        + '</div>'
-                        + '<div class="excursion-footer">'
-                        +   '<div class="excursion-stat"><span>' + qtd + '</span><small>Passageiros</small></div>'
-                        +   '<div class="excursion-stat"><span>' + (poltronas || "—") + '</span><small>Poltronas</small></div>'
-                        +   '<div class="excursion-stat"><span>' + restantes + '</span><small>Disponíveis</small></div>'
-                        + '</div>'
-                        + '</div>';
-                })
-            );
-        });
-
-        Promise.all(promises).then(function(){
-            totalEl.innerText = total;
-            rendaEl.innerText = "R$ " + renda.toFixed(2);
-            rendaEl.className = "info-value " + (renda < 0 ? "red" : "green");
-        });
-    });
-}
-
-function formatarData(str){
-    if(!str) return "—";
-    if(str.indexOf("-") > -1){
-        var p = str.split("-");
-        return p[2] + "/" + p[1] + "/" + p[0];
-    }
-    return str;
-}
-
-// ─── MODAL EXCURSÃO ───
-var editandoExcursaoId = null;
-
-function abrirModalExcursao(id){
-    editandoExcursaoId = id;
-    document.getElementById("modal-excursao-titulo").innerText = id ? "✏️ Editar Excursão" : "➕ Nova Excursão";
-    if(id && excursaoAtualDados){
-        document.getElementById("campo-destino").value = excursaoAtualDados.destino || "";
-        document.getElementById("campo-data").value    = excursaoAtualDados.data    || "";
-        document.getElementById("campo-valor").value   = excursaoAtualDados.valor   || "";
-        document.getElementById("campo-poltronas").value = excursaoAtualDados.poltronas || "";
-    } else {
-        document.getElementById("campo-destino").value  = "";
-        document.getElementById("campo-data").value     = "";
-        document.getElementById("campo-valor").value    = "";
-        document.getElementById("campo-poltronas").value = "";
-    }
-    document.getElementById("modal-excursao").classList.remove("hidden");
-}
-
-function fecharModalExcursao(){
-    document.getElementById("modal-excursao").classList.add("hidden");
-}
-
-function salvarExcursao(){
-    var destino  = document.getElementById("campo-destino").value.trim();
-    var data     = document.getElementById("campo-data").value;
-    var valor    = document.getElementById("campo-valor").value;
-    var poltronas = document.getElementById("campo-poltronas").value;
-    if(!destino){ alert("Informe o destino!"); return; }
-
-    var dados = { destino:destino, data:data, valor:Number(valor), poltronas:Number(poltronas) };
-
-    if(editandoExcursaoId){
-        db.collection("excursoes").doc(editandoExcursaoId).update(dados)
-        .then(function(){
-            fecharModalExcursao();
-            excursaoAtualDados = Object.assign(excursaoAtualDados, dados);
-            renderizarDetalheHeader();
-        }).catch(function(e){ alert(e.message); });
-    } else {
-        dados.criadoEm = Date.now();
-        db.collection("excursoes").add(dados)
-        .then(function(){ fecharModalExcursao(); })
-        .catch(function(e){ alert(e.message); });
-    }
-}
-
-// ─── DETALHE EXCURSÃO ───
-function abrirDetalhe(id){
-    excursaoAtualId = id;
-    db.collection("excursoes").doc(id).get().then(function(doc){
-        excursaoAtualDados = doc.data();
-        renderizarDetalheHeader();
-        carregarPassageirosExcursao(id);
-
-        // Esconde pages, mostra detalhe
-        document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
-        document.getElementById("detalhe-excursao").style.display = "block";
-        document.getElementById("add-btn-global").style.display = "block";
-        document.getElementById("add-btn-global").innerText = "➕ Novo Passageiro";
-        paginaAtual = 'detalhe';
-    });
-}
-
-function renderizarDetalheHeader(){
-    var d = excursaoAtualDados;
-    document.getElementById("detalhe-header-info").innerHTML =
-        '<button class="back-btn" style="display:none"></button>'
-        + '<h2>📍 ' + d.destino + '</h2>'
-        + '<p>📅 ' + formatarData(d.data) + '</p>'
-        + '<p>💰 Valor: R$ ' + Number(d.valor).toFixed(2) + '</p>'
-        + (d.poltronas ? '<p>🪑 Poltronas: ' + d.poltronas + '</p>' : '')
-        + '<button class="btn-editar-excursao" onclick="abrirModalExcursao(\'' + excursaoAtualId + '\')">✏️ Editar Excursão</button>';
-}
-
-function carregarPassageirosExcursao(excursaoId){
-    db.collection("excursoes").doc(excursaoId).collection("passageiros")
-    .orderBy("criadoEm","asc")
-    .onSnapshot(function(snapshot){
-        var lista = document.getElementById("lista-passageiros-excursao");
-        var statsEl = document.getElementById("detalhe-stats");
-        lista.innerHTML = "";
-
-        var qtd = snapshot.size;
-        var poltronas = Number(excursaoAtualDados.poltronas || 0);
-        var totalArrecadado = 0;
-
-        if(snapshot.empty){
-            lista.innerHTML = '<div class="empty" style="margin-top:20px">Nenhum passageiro ainda<br><small>Clique em "Novo Passageiro"</small></div>';
-        }
-
-        snapshot.forEach(function(doc){
-            var p = doc.data();
-            totalArrecadado += Number(p.entrada || 0);
-            var iniciais = (p.nome || "?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
-            var restante = Number(p.total || 0) - Number(p.entrada || 0);
-            lista.innerHTML += '<div class="passageiro-card" onclick="verPassageiro(\'' + excursaoId + '\',\'' + doc.id + '\')">'
-                + '<div class="passageiro-avatar">' + iniciais + '</div>'
-                + '<div class="passageiro-info">'
-                +   '<div class="passageiro-nome">' + (p.nome || "—") + '</div>'
-                +   '<div class="passageiro-poltrona">🪑 Poltrona ' + (p.poltrona || "—") + ' · CPF: ' + (p.cpf || "—") + '</div>'
-                + '</div>'
-                + '<div style="text-align:right">'
-                +   '<div class="passageiro-valor">R$ ' + Number(p.entrada||0).toFixed(2) + '</div>'
-                +   '<div style="font-size:11px;color:#999">Falta: R$ ' + restante.toFixed(2) + '</div>'
-                + '</div>'
-                + '</div>';
-        });
-
-        statsEl.innerHTML =
-            '<div class="stat-card"><span>' + qtd + '</span><small>Passageiros</small></div>'
-            + '<div class="stat-card"><span>' + (poltronas > 0 ? poltronas - qtd : "—") + '</span><small>Vagas livres</small></div>'
-            + '<div class="stat-card"><span>R$ ' + totalArrecadado.toFixed(2) + '</span><small>Arrecadado</small></div>'
-            + '<div class="stat-card"><span>' + (poltronas > 0 ? Math.round(qtd/poltronas*100) + "%" : "—") + '</span><small>Ocupação</small></div>';
-    });
-}
-
-function voltarExcursoes(){
-    document.getElementById("detalhe-excursao").style.display = "none";
-    trocarPagina("excursoes","menu-excursoes");
-}
-
-// ─── MODAL PASSAGEIRO ───
-function abrirModalPassageiro(){
-    document.getElementById("p-nome").value      = "";
-    document.getElementById("p-cpf").value       = "";
-    document.getElementById("p-rg").value        = "";
-    document.getElementById("p-nascimento").value = "";
-    document.getElementById("p-poltrona").value  = "";
-    document.getElementById("p-entrada").value   = "";
-    document.getElementById("p-total").value     = "";
-    document.getElementById("modal-passageiro").classList.remove("hidden");
-}
-
-function fecharModalPassageiro(){
-    document.getElementById("modal-passageiro").classList.add("hidden");
-}
-
-// Máscara CPF
-document.getElementById("p-cpf").addEventListener("input", function(){
-    var v = this.value.replace(/\D/g,"").substring(0,11);
-    v = v.replace(/(\d{3})(\d)/,"$1.$2");
-    v = v.replace(/(\d{3})(\d)/,"$1.$2");
-    v = v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
-    this.value = v;
-});
-
-function salvarPassageiro(){
-    var nome      = document.getElementById("p-nome").value.trim();
-    var cpf       = document.getElementById("p-cpf").value.trim();
-    var rg        = document.getElementById("p-rg").value.trim();
-    var nascimento = document.getElementById("p-nascimento").value;
-    var poltrona  = document.getElementById("p-poltrona").value;
-    var entrada   = document.getElementById("p-entrada").value;
-    var total     = document.getElementById("p-total").value;
-
-    if(!nome){ alert("Informe o nome do passageiro!"); return; }
-
-    db.collection("excursoes").doc(excursaoAtualId).collection("passageiros").add({
-        nome: nome,
-        cpf: cpf,
-        rg: rg,
-        dataNascimento: nascimento,
-        poltrona: Number(poltrona),
-        entrada: Number(entrada),
-        total: Number(total),
-        criadoEm: Date.now()
-    }).then(function(){
-        fecharModalPassageiro();
-    }).catch(function(e){ alert(e.message); });
-}
-
-// ─── VER PASSAGEIRO (detalhe simples por enquanto) ───
-function verPassageiro(excursaoId, passageiroId){
-    db.collection("excursoes").doc(excursaoId).collection("passageiros").doc(passageiroId).get()
-    .then(function(doc){
-        var p = doc.data();
-        var restante = Number(p.total||0) - Number(p.entrada||0);
-        var msg = "👤 " + p.nome
-            + "\n📄 CPF: " + (p.cpf||"—")
-            + "\n🪪 RG: " + (p.rg||"—")
-            + "\n🎂 Nascimento: " + (formatarData(p.dataNascimento)||"—")
-            + "\n🪑 Poltrona: " + (p.poltrona||"—")
-            + "\n💰 Entrada: R$ " + Number(p.entrada||0).toFixed(2)
-            + "\n💳 Total: R$ " + Number(p.total||0).toFixed(2)
-            + "\n⏳ Falta pagar: R$ " + restante.toFixed(2);
-        alert(msg);
-    });
-}
-
-// ─── ANIVERSARIANTES ───
-function carregarAniversariantes(){
-    db.collection("excursoes").get().then(function(excSnap){
-        var promises = [];
-        excSnap.forEach(function(exc){
-            promises.push(
-                db.collection("excursoes").doc(exc.id).collection("passageiros").get()
-                .then(function(pSnap){
-                    var lista = [];
-                    pSnap.forEach(function(doc){
-                        var p = doc.data();
-                        p._id = doc.id;
-                        p._excursaoId = exc.id;
-                        lista.push(p);
-                    });
-                    return lista;
-                })
-            );
-        });
-        return Promise.all(promises);
-    }).then(function(listas){
-        var todos = [].concat.apply([], listas);
-        var hoje = new Date();
-        var aniversariantes = [];
-
-        todos.forEach(function(p){
-            var raw = p.dataNascimento || "";
-            if(!raw) return;
-            var nasc = parsarData(raw);
-            if(!nasc) return;
-            var aniv = new Date(hoje.getFullYear(), nasc.getMonth(), nasc.getDate());
-            var diff = Math.round((aniv - new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())) / 86400000);
-            if(diff >= 0 && diff <= 6){
-                aniversariantes.push({ nome: p.nome||"Sem nome", dataNascimento: raw, diffDias: diff, id: p._id, excId: p._excursaoId });
-            }
-        });
-
-        aniversariantes.sort(function(a,b){ return a.diffDias - b.diffDias; });
-        var container = document.getElementById("lista-aniversariantes");
-
-        if(aniversariantes.length === 0){
-            container.innerHTML = '<div class="birthday-empty">Nenhum aniversariante esta semana 🙂</div>';
-            return;
-        }
-
-        var html = '<div class="birthday-list">';
-        aniversariantes.forEach(function(p){
-            var label = p.diffDias === 0 ? "🎉 Hoje!" : "em " + p.diffDias + "d";
-            var cls   = p.diffDias === 0 ? "birthday-days today" : "birthday-days";
-            html += '<div class="birthday-person">'
-                + '<div class="birthday-avatar">🎂</div>'
-                + '<div class="birthday-info"><div class="birthday-name">' + p.nome + '</div>'
-                + '<div class="birthday-date">📅 ' + p.dataNascimento + '</div></div>'
-                + '<div class="' + cls + '">' + label + '</div>'
-                + '</div>';
-        });
-        html += '</div>';
-        container.innerHTML = html;
-    }).catch(function(e){
-        console.error(e);
-        document.getElementById("lista-aniversariantes").innerHTML = '<div class="birthday-empty">Nenhum aniversariante esta semana</div>';
-    });
-}
-
-function parsarData(str){
-    if(!str) return null;
-    if(str.indexOf("/") > -1){
-        var p = str.split("/");
-        return new Date(Number(p[2]), Number(p[1])-1, Number(p[0]));
-    }
-    if(str.indexOf("-") > -1){
-        var dt = new Date(str + "T00:00:00");
-        return isNaN(dt) ? null : dt;
-    }
-    return null;
-}
-
-// Inicia com botão invisível
-try{ atualizarBotao(); }catch(e){}
-
-// ─── CLIENTES ───
-var todosClientesCache = [];
-
-function carregarClientes(){
-    var container = document.getElementById("lista-clientes");
-    container.innerHTML = '<div class="empty">Carregando...</div>';
-    todosClientesCache = [];
-
-    db.collection("excursoes").orderBy("criadoEm","desc").get().then(function(excSnap){
-        var promises = [];
-        excSnap.forEach(function(exc){
-            var excDados = exc.data();
-            promises.push(
-                db.collection("excursoes").doc(exc.id).collection("passageiros")
-                .orderBy("criadoEm","asc").get()
-                .then(function(pSnap){
-                    pSnap.forEach(function(doc){
-                        var p = doc.data();
-                        todosClientesCache.push({
-                            id: doc.id,
-                            excId: exc.id,
-                            excDestino: excDados.destino,
-                            excData: excDados.data,
-                            nome: p.nome || "",
-                            cpf: p.cpf || "",
-                            rg: p.rg || "",
-                            dataNascimento: p.dataNascimento || "",
-                            poltrona: p.poltrona || "",
-                            entrada: p.entrada || 0,
-                            total: p.total || 0,
-                            criadoEm: p.criadoEm || 0
-                        });
-                    });
-                })
-            );
-        });
-        return Promise.all(promises);
-    }).then(function(){
-        // Ordena por nome
-        todosClientesCache.sort(function(a,b){ return a.nome.localeCompare(b.nome); });
-        renderizarClientes(todosClientesCache);
-    }).catch(function(e){
-        console.error(e);
-        container.innerHTML = '<div class="empty">Erro ao carregar clientes</div>';
-    });
-}
-
-function renderizarClientes(lista){
-    var container = document.getElementById("lista-clientes");
-    if(lista.length === 0){
-        container.innerHTML = '<div class="empty">Nenhum passageiro cadastrado ainda</div>';
-        return;
-    }
-    var html = "";
-    lista.forEach(function(p){
-        var iniciais = (p.nome||"?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
-        var restante = Number(p.total||0) - Number(p.entrada||0);
-        html += '<div class="passageiro-card" onclick="abrirDetalheCliente('' + p.excId + '','' + p.id + '')">'
-            + '<div class="passageiro-avatar">' + iniciais + '</div>'
-            + '<div class="passageiro-info">'
-            +   '<div class="passageiro-nome">' + (p.nome||"—") + '</div>'
-            +   '<div class="passageiro-poltrona">🚌 ' + (p.excDestino||"—") + ' · ' + formatarData(p.excData) + '</div>'
-            +   '<div style="font-size:12px;color:#999;margin-top:2px;">CPF: ' + (p.cpf||"—") + '</div>'
-            + '</div>'
-            + '<div style="text-align:right;flex-shrink:0;">'
-            +   '<div class="passageiro-valor">R$ ' + Number(p.entrada||0).toFixed(2) + '</div>'
-            +   (restante > 0 ? '<div style="font-size:11px;color:var(--red);">Falta: R$ ' + restante.toFixed(2) + '</div>' : '<div style="font-size:11px;color:var(--green);">✅ Quitado</div>')
-            + '</div>'
-            + '</div>';
-    });
-    container.innerHTML = html;
-}
-
-function filtrarClientes(){
-    var busca = document.getElementById("busca-clientes").value.toLowerCase();
-    var filtrado = todosClientesCache.filter(function(p){
-        return (p.nome||"").toLowerCase().includes(busca)
-            || (p.cpf||"").toLowerCase().includes(busca);
-    });
-    renderizarClientes(filtrado);
-}
-
-function abrirDetalheCliente(excId, passId){
-    db.collection("excursoes").doc(excId).get().then(function(excDoc){
-        var exc = excDoc.data();
-        return db.collection("excursoes").doc(excId).collection("passageiros").doc(passId).get()
-        .then(function(pDoc){
-            var p = pDoc.data();
-            var restante = Number(p.total||0) - Number(p.entrada||0);
-            var iniciais = (p.nome||"?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
-
-            document.getElementById("detalhe-cliente-conteudo").innerHTML =
-                '<div style="background:linear-gradient(135deg,#1565C0,#0D47A1);border-radius:18px;padding:20px;color:white;margin-bottom:16px;text-align:center;">'
-                +   '<div style="width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;margin:0 auto 12px auto;">' + iniciais + '</div>'
-                +   '<h2 style="font-size:20px;margin-bottom:4px;">' + (p.nome||"—") + '</h2>'
-                +   '<p style="opacity:0.8;font-size:14px;">🚌 ' + (exc.destino||"—") + ' · ' + formatarData(exc.data) + '</p>'
-                + '</div>'
-                + '<div style="background:white;border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:14px;">'
-                +   '<p style="font-size:13px;color:#999;font-weight:bold;margin-bottom:12px;">DADOS PESSOAIS</p>'
-                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">📄 <strong>CPF:</strong> ' + (p.cpf||"—") + '</p>'
-                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">🪪 <strong>RG:</strong> ' + (p.rg||"—") + '</p>'
-                +   '<p style="margin-bottom:0;font-size:15px;color:#333;">🎂 <strong>Nascimento:</strong> ' + (formatarData(p.dataNascimento)||"—") + '</p>'
-                + '</div>'
-                + '<div style="background:white;border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:14px;">'
-                +   '<p style="font-size:13px;color:#999;font-weight:bold;margin-bottom:12px;">DADOS DA VIAGEM</p>'
-                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">🪑 <strong>Poltrona:</strong> ' + (p.poltrona||"—") + '</p>'
-                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">💰 <strong>Entrada paga:</strong> R$ ' + Number(p.entrada||0).toFixed(2) + '</p>'
-                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">💳 <strong>Valor total:</strong> R$ ' + Number(p.total||0).toFixed(2) + '</p>'
-                +   '<p style="margin-bottom:0;font-size:15px;color:' + (restante > 0 ? 'var(--red)' : 'var(--green)') + ';">'
-                +     (restante > 0 ? '⏳ <strong>Falta pagar: R$ ' + restante.toFixed(2) + '</strong>' : '✅ <strong>Pagamento quitado</strong>')
-                +   '</p>'
-                + '</div>';
-
-            // Esconde lista, mostra detalhe
-            document.getElementById("clientes").style.display = "none";
-            document.getElementById("detalhe-cliente").style.display = "block";
-            document.getElementById("add-btn-global").style.display = "none";
-        });
-    });
-}
-
-function voltarClientes(){
-    document.getElementById("detalhe-cliente").style.display = "none";
-    document.getElementById("clientes").style.display = "block";
-    document.getElementById("clientes").classList.add("active");
-    atualizarBotao();
-}
-</script>
-</body>
-</html>
