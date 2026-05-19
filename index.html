@@ -210,7 +210,14 @@ header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding
 <!-- CLIENTES -->
 <div id="clientes" class="page">
     <h2 class="section-title">👥 Clientes</h2>
-    <div class="empty">Em construção</div>
+    <input type="text" id="busca-clientes" oninput="filtrarClientes()" placeholder="🔍 Buscar por nome ou CPF..." style="width:100%;padding:13px;border-radius:12px;border:1px solid #ddd;font-size:15px;margin-bottom:16px;background:#fff;">
+    <div id="lista-clientes"><div class="empty">Carregando...</div></div>
+</div>
+
+<!-- DETALHE CLIENTE -->
+<div id="detalhe-cliente" style="display:none; padding:16px 16px 100px 16px;">
+    <button style="background:var(--blue);color:white;border:none;border-radius:12px;padding:10px 18px;font-size:15px;font-weight:bold;cursor:pointer;margin-bottom:16px;" onclick="voltarClientes()">← Voltar</button>
+    <div id="detalhe-cliente-conteudo"></div>
 </div>
 
 <!-- BOTÃO FLUTUANTE -->
@@ -354,12 +361,14 @@ function logout(){ auth.signOut(); }
 function trocarPagina(id, menuId){
     // Esconde detalhe se estiver aberto
     document.getElementById("detalhe-excursao").style.display = "none";
+    document.getElementById("detalhe-cliente").style.display = "none";
     document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
     document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
     document.getElementById(id).classList.add("active");
     document.getElementById(menuId).classList.add("active");
     paginaAtual = id;
     atualizarBotao();
+    if(id === 'clientes') carregarClientes();
 }
 
 function atualizarBotao(){
@@ -714,6 +723,134 @@ function parsarData(str){
 
 // Inicia com botão invisível
 atualizarBotao();
+
+// ─── CLIENTES ───
+var todosClientesCache = [];
+
+function carregarClientes(){
+    var container = document.getElementById("lista-clientes");
+    container.innerHTML = '<div class="empty">Carregando...</div>';
+    todosClientesCache = [];
+
+    db.collection("excursoes").orderBy("criadoEm","desc").get().then(function(excSnap){
+        var promises = [];
+        excSnap.forEach(function(exc){
+            var excDados = exc.data();
+            promises.push(
+                db.collection("excursoes").doc(exc.id).collection("passageiros")
+                .orderBy("criadoEm","asc").get()
+                .then(function(pSnap){
+                    pSnap.forEach(function(doc){
+                        var p = doc.data();
+                        todosClientesCache.push({
+                            id: doc.id,
+                            excId: exc.id,
+                            excDestino: excDados.destino,
+                            excData: excDados.data,
+                            nome: p.nome || "",
+                            cpf: p.cpf || "",
+                            rg: p.rg || "",
+                            dataNascimento: p.dataNascimento || "",
+                            poltrona: p.poltrona || "",
+                            entrada: p.entrada || 0,
+                            total: p.total || 0,
+                            criadoEm: p.criadoEm || 0
+                        });
+                    });
+                })
+            );
+        });
+        return Promise.all(promises);
+    }).then(function(){
+        // Ordena por nome
+        todosClientesCache.sort(function(a,b){ return a.nome.localeCompare(b.nome); });
+        renderizarClientes(todosClientesCache);
+    }).catch(function(e){
+        console.error(e);
+        container.innerHTML = '<div class="empty">Erro ao carregar clientes</div>';
+    });
+}
+
+function renderizarClientes(lista){
+    var container = document.getElementById("lista-clientes");
+    if(lista.length === 0){
+        container.innerHTML = '<div class="empty">Nenhum passageiro cadastrado ainda</div>';
+        return;
+    }
+    var html = "";
+    lista.forEach(function(p){
+        var iniciais = (p.nome||"?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
+        var restante = Number(p.total||0) - Number(p.entrada||0);
+        html += '<div class="passageiro-card" onclick="abrirDetalheCliente('' + p.excId + '','' + p.id + '')">'
+            + '<div class="passageiro-avatar">' + iniciais + '</div>'
+            + '<div class="passageiro-info">'
+            +   '<div class="passageiro-nome">' + (p.nome||"—") + '</div>'
+            +   '<div class="passageiro-poltrona">🚌 ' + (p.excDestino||"—") + ' · ' + formatarData(p.excData) + '</div>'
+            +   '<div style="font-size:12px;color:#999;margin-top:2px;">CPF: ' + (p.cpf||"—") + '</div>'
+            + '</div>'
+            + '<div style="text-align:right;flex-shrink:0;">'
+            +   '<div class="passageiro-valor">R$ ' + Number(p.entrada||0).toFixed(2) + '</div>'
+            +   (restante > 0 ? '<div style="font-size:11px;color:var(--red);">Falta: R$ ' + restante.toFixed(2) + '</div>' : '<div style="font-size:11px;color:var(--green);">✅ Quitado</div>')
+            + '</div>'
+            + '</div>';
+    });
+    container.innerHTML = html;
+}
+
+function filtrarClientes(){
+    var busca = document.getElementById("busca-clientes").value.toLowerCase();
+    var filtrado = todosClientesCache.filter(function(p){
+        return (p.nome||"").toLowerCase().includes(busca)
+            || (p.cpf||"").toLowerCase().includes(busca);
+    });
+    renderizarClientes(filtrado);
+}
+
+function abrirDetalheCliente(excId, passId){
+    db.collection("excursoes").doc(excId).get().then(function(excDoc){
+        var exc = excDoc.data();
+        return db.collection("excursoes").doc(excId).collection("passageiros").doc(passId).get()
+        .then(function(pDoc){
+            var p = pDoc.data();
+            var restante = Number(p.total||0) - Number(p.entrada||0);
+            var iniciais = (p.nome||"?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
+
+            document.getElementById("detalhe-cliente-conteudo").innerHTML =
+                '<div style="background:linear-gradient(135deg,#1565C0,#0D47A1);border-radius:18px;padding:20px;color:white;margin-bottom:16px;text-align:center;">'
+                +   '<div style="width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;margin:0 auto 12px auto;">' + iniciais + '</div>'
+                +   '<h2 style="font-size:20px;margin-bottom:4px;">' + (p.nome||"—") + '</h2>'
+                +   '<p style="opacity:0.8;font-size:14px;">🚌 ' + (exc.destino||"—") + ' · ' + formatarData(exc.data) + '</p>'
+                + '</div>'
+                + '<div style="background:white;border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:14px;">'
+                +   '<p style="font-size:13px;color:#999;font-weight:bold;margin-bottom:12px;">DADOS PESSOAIS</p>'
+                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">📄 <strong>CPF:</strong> ' + (p.cpf||"—") + '</p>'
+                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">🪪 <strong>RG:</strong> ' + (p.rg||"—") + '</p>'
+                +   '<p style="margin-bottom:0;font-size:15px;color:#333;">🎂 <strong>Nascimento:</strong> ' + (formatarData(p.dataNascimento)||"—") + '</p>'
+                + '</div>'
+                + '<div style="background:white;border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:14px;">'
+                +   '<p style="font-size:13px;color:#999;font-weight:bold;margin-bottom:12px;">DADOS DA VIAGEM</p>'
+                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">🪑 <strong>Poltrona:</strong> ' + (p.poltrona||"—") + '</p>'
+                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">💰 <strong>Entrada paga:</strong> R$ ' + Number(p.entrada||0).toFixed(2) + '</p>'
+                +   '<p style="margin-bottom:10px;font-size:15px;color:#333;">💳 <strong>Valor total:</strong> R$ ' + Number(p.total||0).toFixed(2) + '</p>'
+                +   '<p style="margin-bottom:0;font-size:15px;color:' + (restante > 0 ? 'var(--red)' : 'var(--green)') + ';">'
+                +     (restante > 0 ? '⏳ <strong>Falta pagar: R$ ' + restante.toFixed(2) + '</strong>' : '✅ <strong>Pagamento quitado</strong>')
+                +   '</p>'
+                + '</div>';
+
+            // Esconde lista, mostra detalhe
+            document.getElementById("clientes").style.display = "none";
+            document.getElementById("detalhe-cliente").style.display = "block";
+            document.getElementById("add-btn-global").style.display = "none";
+        });
+    });
+}
+
+function voltarClientes(){
+    document.getElementById("detalhe-cliente").style.display = "none";
+    document.getElementById("clientes").style.display = "block";
+    document.getElementById("clientes").classList.add("active");
+    atualizarBotao();
+}
 </script>
 </body>
 </html>
