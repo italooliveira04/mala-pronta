@@ -27,7 +27,7 @@ body{ font-family:Arial, sans-serif; background:var(--bg); }
 .login-box h1{ text-align:center; color:var(--blue); margin-bottom:20px; }
 .login-box input{ width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:16px; }
 .login-box button{ width:100%; padding:14px; border:none; border-radius:12px; background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer; }
-#error-msg{ text-align:center; color:red; margin-top:12px; display:none; }
+#error-msg{ text-align:center; margin-top:12px; display:none; font-size:14px; }
 
 /* APP */
 #app{ display:none; }
@@ -360,8 +360,10 @@ function logout(){ auth.signOut(); }
 // ─── NAVEGAÇÃO ───
 function trocarPagina(id, menuId){
     // Esconde detalhe se estiver aberto
-    document.getElementById("detalhe-excursao").style.display = "none";
-    document.getElementById("detalhe-cliente").style.display = "none";
+    var de = document.getElementById("detalhe-excursao");
+    var dc = document.getElementById("detalhe-cliente");
+    if(de) de.style.display = "none";
+    if(dc) dc.style.display = "none";
     document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
     document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
     document.getElementById(id).classList.add("active");
@@ -722,7 +724,7 @@ function parsarData(str){
 }
 
 // Inicia com botão invisível
-atualizarBotao();
+try{ atualizarBotao(); }catch(e){}
 
 // ─── CLIENTES ───
 var todosClientesCache = [];
