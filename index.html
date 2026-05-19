@@ -23,15 +23,9 @@ body{ font-family:Arial, sans-serif; background:var(--bg); }
     display:flex; justify-content:center; align-items:center; padding:20px;
     z-index:999;
 }
-.login-box{
-    background:white; width:100%; max-width:360px;
-    border-radius:20px; padding:25px;
-}
-.login-box h1{ text-align:center; color:var(--blue); margin-bottom:20px; }
-.login-box input{
-    width:100%; padding:14px; margin-bottom:12px;
-    border-radius:12px; border:1px solid #ccc; font-size:16px;
-}
+.login-box{ background:white; width:100%; max-width:360px; border-radius:20px; padding:25px; }
+.login-box h1{ text-align:center; color:var(--blue); margin-bottom:20px; font-size:26px; }
+.login-box input{ width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:16px; }
 .login-box button{
     width:100%; padding:14px; border:none; border-radius:12px;
     background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer;
@@ -127,38 +121,68 @@ header{
 
 /* EXCURSÕES */
 .excursion-card{
-    background:white; border-radius:18px; padding:16px;
-    margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    background:white; border-radius:18px; padding:18px;
+    margin-bottom:14px; box-shadow:0 3px 12px rgba(0,0,0,0.08);
+    cursor:pointer; transition: transform 0.1s;
 }
-.excursion-card h3{ color:var(--blue); margin-bottom:8px; }
+.excursion-card:active{ transform: scale(0.99); }
+.excursion-card h3{ color:var(--blue); margin-bottom:8px; font-size:18px; }
+.excursion-card p{ font-size:14px; color:#666; margin-bottom:4px; }
 
-/* PASSAGEIRO DETALHE */
-.passenger-detail{
-    background:white; border-radius:18px; padding:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.08); margin-top:10px;
-}
-.passenger-detail h2{ color:var(--blue); margin-bottom:16px; }
-.passenger-detail p{ margin-bottom:10px; font-size:15px; color:#444; }
+/* DETALHE EXCURSÃO E PASSAGEIRO */
 .back-btn{
     display:inline-flex; align-items:center; gap:8px;
-    background:var(--blue); color:white; border:none;
-    border-radius:12px; padding:10px 18px; font-size:15px;
-    font-weight:bold; cursor:pointer; margin-bottom:14px;
+    background:#e0e0e0; color:#333; border:none;
+    border-radius:12px; padding:10px 16px; font-size:15px;
+    font-weight:bold; cursor:pointer; margin-bottom:16px;
+}
+.passenger-item{
+    background:white; padding:14px; border-radius:14px;
+    margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    display:flex; justify-content:between; align-items:center;
+    cursor:pointer;
+}
+.passenger-item-info{ flex:1; }
+.passenger-item-info h4{ color:#333; font-size:16px; margin-bottom:4px; }
+.passenger-item-info p{ font-size:13px; color:#666; }
+
+/* FORMULÁRIOS INTERNOS */
+.form-container{ background:white; padding:20px; border-radius:18px; box-shadow:0 3px 12px rgba(0,0,0,0.08); }
+.form-group{ margin-bottom:14px; }
+.form-group label{ display:block; font-size:14px; font-weight:bold; color:#444; margin-bottom:6px; }
+.form-group input, .form-group select{
+    width:100%; padding:12px; border:1px solid #ccc; border-radius:10px; font-size:15px;
+}
+.radio-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.radio-option {
+    flex: 1; min-width: 100px; background: #f0f2f5; border: 2px solid #e0e0e0;
+    padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 14px;
+}
+.radio-option input { display: none; }
+.radio-option.selected { background: #e3f2fd; border-color: var(--blue); color: var(--blue); font-weight: bold; }
+
+.action-btn{
+    width:100%; padding:14px; border:none; border-radius:12px;
+    background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer; margin-top:10px;
 }
 
-/* BOTÃO */
+/* HISTÓRICO DE PAGAMENTOS */
+.payment-box { background: #f9f9f9; padding: 14px; border-radius: 12px; border: 1px dashed #ccc; margin-top: 15px; }
+.payment-list-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+
+/* FLOATING BUTTON */
 .add-btn{
     position:fixed; bottom:20px; left:20px; right:20px;
-    padding:18px; border:none; border-radius:20px;
+    padding:16px; border:none; border-radius:20px;
     background:var(--blue2); color:white;
-    font-size:20px; font-weight:bold;
-    box-shadow:0 5px 20px rgba(0,0,0,0.2); cursor:pointer;
+    font-size:18px; font-weight:bold;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2); cursor:pointer; text-align:center;
+    z-index:90;
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
     <div class="login-box">
         <h1>🚌 Mala Pronta</h1>
@@ -169,7 +193,6 @@ header{
     </div>
 </div>
 
-<!-- APP -->
 <div id="app">
 <header>
     <div class="top-header">
@@ -181,8 +204,6 @@ header{
             </div>
         </div>
         <div class="header-buttons">
-            <button class="header-btn">💾</button>
-            <button class="header-btn">🔍</button>
             <button class="header-btn" onclick="logout()">🚪</button>
         </div>
     </div>
@@ -193,7 +214,6 @@ header{
     </div>
 </header>
 
-<!-- INÍCIO -->
 <div id="inicio" class="page active">
     <h2 class="section-title">📊 Painel Geral</h2>
     <div class="home-cards">
@@ -217,36 +237,94 @@ header{
     </div>
 </div>
 
-<!-- EXCURSÕES -->
 <div id="excursoes" class="page">
-    <h2 class="section-title">🚌 Excursões Futuras</h2>
-    <div id="lista-excursoes">
-        <div class="empty">Nenhuma excursão cadastrada</div>
+    <div id="excursoes-lista-aba">
+        <h2 class="section-title">🚌 Excursões Futuras</h2>
+        <div id="lista-excursoes"><div class="empty">Carregando...</div></div>
+        <button class="add-btn" onclick="mostrarFormExcursao()">➕ Nova Excursão</button>
+    </div>
+
+    <div id="form-nova-excursao" style="display:none;">
+        <button class="back-btn" onclick="fecharFormExcursao()">← Voltar</button>
+        <h2 class="section-title">📝 Nova Excursão</h2>
+        <div class="form-container">
+            <div class="form-group"><label>Destino</label><input type="text" id="exc-destino" placeholder="Ex: Praia do Gunga"></div>
+            <div class="form-group"><label>Data da Viagem</label><input type="date" id="exc-data"></div>
+            <div class="form-group"><label>Valor por Vaga (R$)</label><input type="number" id="exc-valor" placeholder="0.00"></div>
+            <button class="action-btn" onclick="salvarNovaExcursao()">Salvar Excursão</button>
+        </div>
+    </div>
+
+    <div id="excursao-detalhe" style="display:none;">
+        <button class="back-btn" onclick="fecharDetalheExcursao()">← Voltar para Lista</button>
+        <h2 class="section-title" id="detalhe-exc-titulo">📍 Detalhes da Viagem</h2>
+        <p id="detalhe-exc-sub" style="margin-bottom: 20px; color: #555;"></p>
+        
+        <h3>👥 Lista de Passageiros</h3>
+        <div id="lista-passageiros-exc" style="margin-top: 10px; margin-bottom: 80px;"></div>
+        
+        <button class="add-btn" onclick="mostrarFormPassageiro()">➕ Adicionar Passageiro</button>
+    </div>
+
+    <div id="form-novo-passageiro" style="display:none;">
+        <button class="back-btn" onclick="fecharFormPassageiro()">← Voltar</button>
+        <h2 class="section-title">👤 Novo Passageiro</h2>
+        <div class="form-container">
+            <div class="form-group"><label>Nome Completo</label><input type="text" id="pas-nome"></div>
+            <div class="form-group"><label>CPF</label><input type="text" id="pas-cpf" placeholder="000.000.000-00"></div>
+            <div class="form-group"><label>RG</label><input type="text" id="pas-rg" placeholder="Nº do RG"></div>
+            <div class="form-group"><label>Data de Nascimento</label><input type="date" id="pas-nascimento"></div>
+            <div class="form-group"><label>Número da Poltrona</label><input type="number" id="pas-poltrona" placeholder="Ex: 12"></div>
+            <div class="form-group"><label>Valor Total do Pacote (R$)</label><input type="number" id="pas-total" placeholder="0.00"></div>
+            <div class="form-group"><label>Valor da Entrada (R$)</label><input type="number" id="pas-entrada" placeholder="0.00"></div>
+            
+            <div class="form-group">
+                <label>Forma de Pagamento da Entrada</label>
+                <div class="radio-group">
+                    <div class="radio-option" onclick="selectRadio(this, 'avista')"><input type="radio" name="pas-tipo-pg" value="À vista">À vista</div>
+                    <div class="radio-option" onclick="selectRadio(this, 'pix')"><input type="radio" name="pas-tipo-pg" value="Pix">Pix</div>
+                    <div class="radio-option" onclick="selectRadio(this, 'credito')"><input type="radio" name="pas-tipo-pg" value="Cartão de Crédito">Crédito</div>
+                    <div class="radio-option" onclick="selectRadio(this, 'debito')"><input type="radio" name="pas-tipo-pg" value="Cartão de Débito">Débito</div>
+                </div>
+            </div>
+            <button class="action-btn" onclick="salvarNovoPassageiro()">Salvar Passageiro</button>
+        </div>
     </div>
 </div>
 
-<!-- CLIENTES -->
 <div id="clientes" class="page">
-    <h2 class="section-title">👥 Clientes</h2>
-    <div id="clientes-lista">
-        <div class="empty">Área de clientes em construção</div>
+    <div id="clientes-lista-aba">
+        <h2 class="section-title">👥 Todos os Clientes</h2>
+        <div id="clientes-lista"><div class="empty">Carregando...</div></div>
     </div>
+    
     <div id="passageiro-detalhe" style="display:none;">
-        <button class="back-btn" onclick="voltarClientes()">← Voltar</button>
-        <div class="passenger-detail" id="passageiro-dados"></div>
+        <button class="back-btn" onclick="fecharDetalhePassageiro()">← Voltar</button>
+        <div class="form-container">
+            <div id="passageiro-dados"></div>
+            
+            <div class="payment-box">
+                <h3>💰 Histórico de Pagamentos</h3>
+                <div id="historico-pagamentos-lista" style="margin: 10px 0;"></div>
+                
+                <h4 style="margin-top:15px; margin-bottom:5px; font-size:14px; color:#333;">Lançar Novo Pagamento</h4>
+                <div style="display:flex; gap:8px;">
+                    <input type="number" id="novo-pg-valor" placeholder="Valor R$" style="flex:1; padding:10px; border:1px solid #ccc; border-radius:8px;">
+                    <input type="date" id="novo-pg-data" style="flex:1; padding:10px; border:1px solid #ccc; border-radius:8px;">
+                </div>
+                <button class="action-btn" style="background:var(--green); padding:10px; font-size:14px;" onclick="lancarNovoPagamento()">Adicionar Pagamento</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<button class="add-btn" onclick="novaExcursao()">➕ Nova Excursão</button>
 </div>
 
-<!-- Firebase compat (funciona sem type=module) -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-// Inicializa Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC7LtIMIRduJayU-W4LVfCy08pyanGwz-A",
   authDomain: "mala-pronta-gemin.firebaseapp.com",
@@ -260,239 +338,133 @@ firebase.initializeApp(firebaseConfig);
 const db   = firebase.firestore();
 const auth = firebase.auth();
 
+let idExcursaoAtiva = "";
+let idPassageiroAtivo = "";
+let todosPassageiros = {};
+
 // ─── AUTH STATE ───
 auth.onAuthStateChanged(function(user){
     if(user){
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("app").style.display = "block";
         carregarExcursoes();
-        carregarAniversariantes();
+        carregarTodosClientesGeral();
     } else {
         document.getElementById("login-screen").style.display = "flex";
         document.getElementById("app").style.display = "none";
     }
 });
 
-// ─── LOGIN ───
 function fazerLogin(){
     var email = document.getElementById("email").value.trim();
     var senha = document.getElementById("senha").value;
     var errDiv = document.getElementById("error-msg");
     errDiv.style.display = "none";
 
-    if(!email || !senha){
-        errDiv.style.display = "block";
-        errDiv.innerText = "Preencha email e senha.";
-        return;
-    }
+    if(!email || !senha){ errDiv.style.display = "block"; errDiv.innerText = "Preencha email e senha."; return; }
+    errDiv.style.display = "block"; errDiv.style.color = "#1565C0"; errDiv.innerText = "Entrando...";
 
-    errDiv.style.display = "block";
-    errDiv.style.color = "#1565C0";
-    errDiv.innerText = "Entrando...";
-
-    auth.signInWithEmailAndPassword(email, senha)
-        .then(function(){
-            errDiv.style.display = "none";
-        })
-        .catch(function(error){
-            errDiv.style.display = "block";
-            errDiv.style.color = "red";
-            // Mostra o código real do erro para diagnóstico
-            var msgs = {
-                "auth/user-not-found":    "Usuário não encontrado.",
-                "auth/wrong-password":    "Senha incorreta.",
-                "auth/invalid-email":     "Email inválido.",
-                "auth/invalid-credential":"Email ou senha incorretos.",
-                "auth/too-many-requests": "Muitas tentativas. Tente mais tarde.",
-                "auth/network-request-failed": "Sem conexão com a internet."
-            };
-            errDiv.innerText = msgs[error.code] || ("Erro: " + error.code);
-        });
+    auth.signInWithEmailAndPassword(email, senha).catch(function(error){
+        errDiv.style.display = "block"; errDiv.style.color = "red";
+        errDiv.innerText = "Erro ao entrar: " + error.code;
+    });
 }
 
-// ─── LOGOUT ───
-function logout(){
-    auth.signOut();
-}
+function logout(){ auth.signOut(); }
 
-// ─── TROCAR PÁGINA ───
 function trocarPagina(id, menuId){
     document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
     document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
     document.getElementById(id).classList.add("active");
     document.getElementById(menuId).classList.add("active");
-    // Ao sair de clientes, reseta o detalhe
-    if(id !== "clientes") voltarClientes();
+    
+    // Reseta visualizações internas ao trocar de aba
+    fecharFormExcursao();
+    fecharDetalheExcursao();
+    fecharDetalhePassageiro();
 }
 
-// ─── NOVA EXCURSÃO ───
-function novaExcursao(){
-    var destino = prompt("Destino da excursão:");
-    if(!destino) return;
-    var data = prompt("Data da excursão:");
-    if(!data) return;
-    var valor = prompt("Valor da excursão (apenas números):");
-    if(!valor) return;
+// ─── LÓGICA RÁDIO CUSTOMIZADO ───
+function selectRadio(element, id) {
+    let parent = element.parentElement;
+    parent.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+    element.querySelector('input').checked = true;
+}
+
+// ─── EXCURSÕES CONTROLES ───
+function mostrarFormExcursao(){
+    document.getElementById("excursoes-lista-aba").style.display = "none";
+    document.getElementById("form-nova-excursao").style.display = "block";
+}
+function fecharFormExcursao(){
+    document.getElementById("excursoes-lista-aba").style.display = "block";
+    document.getElementById("form-nova-excursao").style.display = "none";
+}
+
+function salvarNovaExcursao(){
+    let dest = document.getElementById("exc-destino").value;
+    let data = document.getElementById("exc-data").value;
+    let valor = document.getElementById("exc-valor").value;
+
+    if(!dest || !data || !valor){ alert("Preencha todos os campos da excursão!"); return; }
 
     db.collection("excursoes").add({
-        destino: destino,
+        destino: dest,
         data: data,
         valor: Number(valor),
         criadoEm: Date.now()
-    }).then(function(){
-        alert("Excursão criada!");
-    }).catch(function(e){
-        alert(e.message);
+    }).then(() => {
+        alert("Excursão cadastrada com sucesso!");
+        fecharFormExcursao();
+        // Limpar campos
+        document.getElementById("exc-destino").value = "";
+        document.getElementById("exc-data").value = "";
+        document.getElementById("exc-valor").value = "";
     });
 }
 
-// ─── LISTAR EXCURSÕES ───
 function carregarExcursoes(){
-    db.collection("excursoes")
-      .orderBy("criadoEm","desc")
-      .onSnapshot(function(snapshot){
+    db.collection("excursoes").orderBy("criadoEm","desc").onSnapshot(function(snapshot){
         var lista = document.getElementById("lista-excursoes");
         var totalEl = document.getElementById("total-ativas");
-        var rendaEl = document.getElementById("renda-mes");
-
         lista.innerHTML = "";
-        var total = 0, renda = 0;
+        let total = 0;
 
-        if(snapshot.empty){
-            lista.innerHTML = '<div class="empty">Nenhuma excursão cadastrada</div>';
-        }
+        if(snapshot.empty){ lista.innerHTML = '<div class="empty">Nenhuma excursão cadastrada</div>'; }
 
         snapshot.forEach(function(doc){
-            var d = doc.data();
             total++;
-            renda += Number(d.valor || 0);
-            lista.innerHTML += '<div class="excursion-card">'
-                + '<h3>📍 ' + d.destino + '</h3>'
-                + '<p>📅 ' + d.data + '</p>'
-                + '<p>💰 R$ ' + Number(d.valor).toFixed(2) + '</p>'
-                + '</div>';
+            var d = doc.data();
+            // Formatando data padrão BR
+            let dataFormatada = d.data.split("-").reverse().join("/");
+            lista.innerHTML += `<div class="excursion-card" onclick="verDetalhesExcursao('${doc.id}', '${d.destino}', '${dataFormatada}', ${d.valor})">
+                <h3>📍 ${d.destino}</h3>
+                <p>📅 Data: ${dataFormatada}</p>
+                <p>💰 Valor Vaga: R$ ${Number(d.valor).toFixed(2)}</p>
+            </div>`;
         });
-
-        totalEl.innerText = total;
-        rendaEl.innerText = "R$ " + renda.toFixed(2);
-        rendaEl.className = "info-value " + (renda < 0 ? "red" : "green");
+        if(totalEl) totalEl.innerText = total;
     });
 }
 
-// ─── ANIVERSARIANTES DA SEMANA ───
-var todosPassageiros = {};
-
-function carregarAniversariantes(){
-    db.collection("passageiros").get().then(function(snap){
-        todosPassageiros = {};
-        var hoje = new Date();
-        var aniversariantes = [];
-
-        snap.forEach(function(doc){
-            var p = doc.data();
-            todosPassageiros[doc.id] = Object.assign({ id: doc.id }, p);
-
-            var raw = p.dataNascimento || p.data_nascimento || p.nascimento || "";
-            if(!raw) return;
-
-            var dataNasc = parsarData(raw);
-            if(!dataNasc) return;
-
-            var anivEsteAno = new Date(hoje.getFullYear(), dataNasc.getMonth(), dataNasc.getDate());
-            var diffMs = anivEsteAno.getTime() - new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()).getTime();
-            var diffDias = Math.round(diffMs / (1000*60*60*24));
-
-            if(diffDias >= 0 && diffDias <= 6){
-                aniversariantes.push({
-                    id: doc.id,
-                    nome: p.nome || p.name || "Sem nome",
-                    dataNascimento: raw,
-                    diffDias: diffDias
-                });
-            }
-        });
-
-        aniversariantes.sort(function(a,b){ return a.diffDias - b.diffDias; });
-
-        var container = document.getElementById("lista-aniversariantes");
-
-        if(aniversariantes.length === 0){
-            container.innerHTML = '<div class="birthday-empty">Nenhum aniversariante esta semana 🙂</div>';
-            return;
-        }
-
-        var html = '<div class="birthday-list">';
-        aniversariantes.forEach(function(p){
-            var label = p.diffDias === 0 ? "🎉 Hoje!" : "em " + p.diffDias + "d";
-            var cls   = p.diffDias === 0 ? "birthday-days today" : "birthday-days";
-            html += '<div class="birthday-person" onclick="abrirPassageiro(\'' + p.id + '\')">'
-                + '<div class="birthday-avatar">🎂</div>'
-                + '<div class="birthday-info">'
-                +   '<div class="birthday-name">' + p.nome + '</div>'
-                +   '<div class="birthday-date">📅 ' + p.dataNascimento + '</div>'
-                + '</div>'
-                + '<div class="' + cls + '">' + label + '</div>'
-                + '</div>';
-        });
-        html += '</div>';
-        container.innerHTML = html;
-
-    }).catch(function(e){
-        console.error("Erro aniversariantes:", e);
-        document.getElementById("lista-aniversariantes").innerHTML =
-            '<div class="birthday-empty">Nenhum aniversariante esta semana</div>';
-    });
+// ─── DETALHE EXCURSÃO E PASSAGEIROS ───
+function verDetalhesExcursao(id, destino, data, valor){
+    idExcursaoAtiva = id;
+    document.getElementById("excursoes-lista-aba").style.display = "none";
+    document.getElementById("excursao-detalhe").style.display = "block";
+    document.getElementById("detalhe-exc-titulo").innerText = "📍 " + destino;
+    document.getElementById("detalhe-exc-sub").innerText = `Viagem marcada para: ${data} | Valor individual: R$ ${Number(valor).toFixed(2)}`;
+    
+    carregarPassageirosDaExcursao(id);
 }
 
-// ─── PARSEAR DATA ───
-function parsarData(str){
-    if(!str) return null;
-    if(str.indexOf("/") > -1){
-        var p = str.split("/");
-        if(p.length < 3) return null;
-        return new Date(Number(p[2]), Number(p[1])-1, Number(p[0]));
-    }
-    if(str.indexOf("-") > -1){
-        var dt = new Date(str + "T00:00:00");
-        return isNaN(dt) ? null : dt;
-    }
-    return null;
+function fecharDetalheExcursao(){
+    document.getElementById("excursoes-lista-aba").style.display = "block";
+    document.getElementById("excursao-detalhe").style.display = "none";
+    idExcursaoAtiva = "";
 }
 
-// ─── ABRIR PASSAGEIRO ───
-function abrirPassageiro(id){
-    var p = todosPassageiros[id];
-    trocarPagina("clientes","menu-clientes");
-
-    document.getElementById("clientes-lista").style.display = "none";
-    document.getElementById("passageiro-detalhe").style.display = "block";
-
-    var box = document.getElementById("passageiro-dados");
-    if(!p){ box.innerHTML = "<p>Passageiro não encontrado.</p>"; return; }
-
-    var campos = [
-        { label:"👤 Nome",        valor: p.nome || p.name },
-        { label:"📅 Nascimento",  valor: p.dataNascimento || p.data_nascimento || p.nascimento },
-        { label:"📞 Telefone",    valor: p.telefone || p.phone },
-        { label:"📧 Email",       valor: p.email },
-        { label:"🚌 Excursão",    valor: p.excursao },
-        { label:"💰 Valor Pago",  valor: p.valorPago ? "R$ " + p.valorPago : null },
-        { label:"📝 Observações", valor: p.obs || p.observacoes },
-    ].filter(function(c){ return c.valor; });
-
-    var html = "<h2>Cadastro do Passageiro</h2>";
-    campos.forEach(function(c){ html += "<p><strong>" + c.label + ":</strong> " + c.valor + "</p>"; });
-    if(campos.length === 0) html += '<p style="color:#aaa">Nenhuma informação cadastrada.</p>';
-    box.innerHTML = html;
-}
-
-// ─── VOLTAR CLIENTES ───
-function voltarClientes(){
-    var lista = document.getElementById("clientes-lista");
-    var det   = document.getElementById("passageiro-detalhe");
-    if(lista) lista.style.display = "block";
-    if(det)   det.style.display   = "none";
-}
-</script>
-</body>
-</html>
+function mostrarFormPassageiro(){
+    document.getElementById("excursao-detalhe").style.display = "none";
+    document.getElementById("form-n
