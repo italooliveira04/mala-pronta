@@ -319,7 +319,7 @@ auth.onAuthStateChanged(function(user){
     }
 });
 
-// ─── LOGIN CORRIGIDO ───
+// ─── LOGIN ───
 function fazerLogin(){
     var email = document.getElementById("email").value.trim();
     var senha = document.getElementById("senha").value;
@@ -328,7 +328,7 @@ function fazerLogin(){
     if(!email || !senha){
         errDiv.style.display = "block";
         errDiv.style.color = "red";
-        errDiv.innerText = "Por favor, digite seu e-mail e senha.";
+        errDiv.innerText = "Por favor, preencha todos os campos.";
         return;
     }
 
@@ -340,7 +340,7 @@ function fazerLogin(){
         .then(function(){ 
             errDiv.style.display = "none"; 
         })
-        .catch(function(error){ // Ajustado o nome do parâmetro para bater com o bloco interno
+        .catch(function(e){
             errDiv.style.display = "block";
             errDiv.style.color = "red";
             var msgs = {
@@ -349,72 +349,4 @@ function fazerLogin(){
                 "auth/invalid-email":"Email inválido.",
                 "auth/invalid-credential":"Email ou senha incorretos.",
                 "auth/too-many-requests":"Muitas tentativas. Tente mais tarde.",
-                "auth/network-request-failed":"Sem conexão."
-            };
-            errDiv.innerText = msgs[error.code] || ("Erro: " + error.code);
-        });
-}
-
-function logout(){ auth.signOut(); }
-
-// ─── NAVEGAÇÃO ───
-function trocarPagina(id, menuId){
-    var de = document.getElementById("detalhe-excursao");
-    var dc = document.getElementById("detalhe-cliente");
-    if(de) de.style.display = "none";
-    if(dc) dc.style.display = "none";
-    document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
-    document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
-    document.getElementById(id).classList.add("active");
-    if(menuId) document.getElementById(menuId).classList.add("active");
-    paginaAtual = id;
-    atualizarBotao();
-    if(id === 'clientes') carregarClientes();
-}
-
-function atualizarBotao(){
-    var btn = document.getElementById("add-btn-global");
-    if(paginaAtual === 'excursoes'){
-        btn.innerText = "➕ Nova Excursão";
-        btn.style.display = "block";
-    } else if(paginaAtual === 'detalhe'){
-        btn.innerText = "➕ Novo Passageiro";
-        btn.style.display = "block";
-    } else {
-        btn.style.display = "none";
-    }
-}
-
-function acaoBotao(){
-    if(paginaAtual === 'excursoes'){
-        abrirModalExcursao(null);
-    } else if(paginaAtual === 'detalhe'){
-        abrirModalPassageiro();
-    }
-}
-
-// ─── EXCURSÕES ───
-function carregarExcursoes(){
-    db.collection("excursoes").orderBy("criadoEm","desc").onSnapshot(function(snapshot){
-        var lista = document.getElementById("lista-excursoes");
-        var totalEl = document.getElementById("total-ativas");
-        var rendaEl = document.getElementById("renda-mes");
-        lista.innerHTML = "";
-        var total = 0, renda = 0;
-
-        if(snapshot.empty){
-            lista.innerHTML = '<div class="empty">Nenhuma excursão cadastrada<br><small>Clique em "Nova Excursão" para começar</small></div>';
-        }
-
-        var promises = [];
-        snapshot.forEach(function(doc){
-            var d = doc.data();
-            total++;
-            renda += Number(d.valor || 0);
-            
-            var card = document.createElement("div");
-            card.className = "excursion-card";
-            
-            promises.push(
-                db.collection("excursoes").doc(doc.id).collection("passageiros").get()
-                .then(function(pSnap){
+                "auth/network-request-failed":"
