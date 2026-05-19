@@ -30,7 +30,7 @@ body{ font-family:Arial, sans-serif; background:var(--bg); }
     width:100%; padding:14px; border:none; border-radius:12px;
     background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer;
 }
-#error-msg{ text-align:center; color:red; margin-top:12px; display:none; }
+#error-msg{ text-align:center; color:red; margin-top:12px; display:none; font-size:14px; font-weight:bold; }
 
 /* APP */
 #app{ display:none; }
@@ -139,7 +139,7 @@ header{
 .passenger-item{
     background:white; padding:14px; border-radius:14px;
     margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,0.05);
-    display:flex; justify-content:between; align-items:center;
+    display:flex; justify-content:space-between; align-items:center;
     cursor:pointer;
 }
 .passenger-item-info{ flex:1; }
@@ -186,10 +186,10 @@ header{
 <div id="login-screen">
     <div class="login-box">
         <h1>🚌 Mala Pronta</h1>
-        <input type="email" id="email" placeholder="Seu email">
-        <input type="password" id="senha" placeholder="Sua senha">
+        <input type="email" id="login-email" placeholder="Seu email">
+        <input type="password" id="login-senha" placeholder="Sua senha">
         <button onclick="fazerLogin()">Entrar</button>
-        <div id="error-msg">Email ou senha inválidos</div>
+        <div id="error-msg"></div>
     </div>
 </div>
 
@@ -356,17 +356,31 @@ auth.onAuthStateChanged(function(user){
 });
 
 function fazerLogin(){
-    var email = document.getElementById("email").value.trim();
-    var senha = document.getElementById("senha").value;
+    // Corrigido para os IDs exatos do seu banco de dados
+    var email = document.getElementById("login-email").value.trim();
+    var senha = document.getElementById("login-senha").value;
     var errDiv = document.getElementById("error-msg");
     errDiv.style.display = "none";
 
-    if(!email || !senha){ errDiv.style.display = "block"; errDiv.innerText = "Preencha email e senha."; return; }
-    errDiv.style.display = "block"; errDiv.style.color = "#1565C0"; errDiv.innerText = "Entrando...";
+    if(!email || !senha){ 
+        errDiv.style.display = "block"; 
+        errDiv.style.color = "red";
+        errDiv.innerText = "Preencha email e senha."; 
+        return; 
+    }
+    
+    errDiv.style.display = "block"; 
+    errDiv.style.color = "#1565C0"; 
+    errDiv.innerText = "Entrando...";
 
     auth.signInWithEmailAndPassword(email, senha).catch(function(error){
-        errDiv.style.display = "block"; errDiv.style.color = "red";
-        errDiv.innerText = "Erro ao entrar: " + error.code;
+        errDiv.style.display = "block"; 
+        errDiv.style.color = "red";
+        if(error.code === "auth/wrong-password" || error.code === "auth/user-not-found" || error.code === "auth/invalid-credential"){
+            errDiv.innerText = "Email ou senha incorretos.";
+        } else {
+            errDiv.innerText = "Erro ao entrar: " + error.message;
+        }
     });
 }
 
@@ -378,13 +392,11 @@ function trocarPagina(id, menuId){
     document.getElementById(id).classList.add("active");
     document.getElementById(menuId).classList.add("active");
     
-    // Reseta visualizações internas ao trocar de aba
     fecharFormExcursao();
     fecharDetalheExcursao();
     fecharDetalhePassageiro();
 }
 
-// ─── LÓGICA RÁDIO CUSTOMIZADO ───
 function selectRadio(element, id) {
     let parent = element.parentElement;
     parent.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
@@ -392,7 +404,7 @@ function selectRadio(element, id) {
     element.querySelector('input').checked = true;
 }
 
-// ─── EXCURSÕES CONTROLES ───
+// ─── EXCURSÕES ───
 function mostrarFormExcursao(){
     document.getElementById("excursoes-lista-aba").style.display = "none";
     document.getElementById("form-nova-excursao").style.display = "block";
@@ -417,7 +429,6 @@ function salvarNovaExcursao(){
     }).then(() => {
         alert("Excursão cadastrada com sucesso!");
         fecharFormExcursao();
-        // Limpar campos
         document.getElementById("exc-destino").value = "";
         document.getElementById("exc-data").value = "";
         document.getElementById("exc-valor").value = "";
@@ -436,8 +447,7 @@ function carregarExcursoes(){
         snapshot.forEach(function(doc){
             total++;
             var d = doc.data();
-            // Formatando data padrão BR
-            let dataFormatada = d.data.split("-").reverse().join("/");
+            let dataFormatada = d.data ? d.data.split("-").reverse().join("/") : "";
             lista.innerHTML += `<div class="excursion-card" onclick="verDetalhesExcursao('${doc.id}', '${d.destino}', '${dataFormatada}', ${d.valor})">
                 <h3>📍 ${d.destino}</h3>
                 <p>📅 Data: ${dataFormatada}</p>
@@ -448,23 +458,16 @@ function carregarExcursoes(){
     });
 }
 
-// ─── DETALHE EXCURSÃO E PASSAGEIROS ───
+// ─── DETALHES PASSAGEIROS ───
 function verDetalhesExcursao(id, destino, data, valor){
     idExcursaoAtiva = id;
     document.getElementById("excursoes-lista-aba").style.display = "none";
     document.getElementById("excursao-detalhe").style.display = "block";
     document.getElementById("detalhe-exc-titulo").innerText = "📍 " + destino;
-    document.getElementById("detalhe-exc-sub").innerText = `Viagem marcada para: ${data} | Valor individual: R$ ${Number(valor).toFixed(2)}`;
+    document.getElementById("detalhe-exc-sub").innerText = `Viagem: ${data} | Valor individual: R$ ${Number(valor).toFixed(2)}`;
     
     carregarPassageirosDaExcursao(id);
 }
 
 function fecharDetalheExcursao(){
-    document.getElementById("excursoes-lista-aba").style.display = "block";
-    document.getElementById("excursao-detalhe").style.display = "none";
-    idExcursaoAtiva = "";
-}
-
-function mostrarFormPassageiro(){
-    document.getElementById("excursao-detalhe").style.display = "none";
-    document.getElementById("form-n
+    document.getElementById("excursoes-lista-aba").style.display = "block"
