@@ -23,137 +23,112 @@ body{ font-family:Arial, sans-serif; background:var(--bg); }
     display:flex; justify-content:center; align-items:center; padding:20px;
     z-index:999;
 }
-.login-box{
-    background:white; width:100%; max-width:360px;
-    border-radius:20px; padding:25px;
-}
+.login-box{ background:white; width:100%; max-width:360px; border-radius:20px; padding:25px; }
 .login-box h1{ text-align:center; color:var(--blue); margin-bottom:20px; }
-.login-box input{
-    width:100%; padding:14px; margin-bottom:12px;
-    border-radius:12px; border:1px solid #ccc; font-size:16px;
-}
-.login-box button{
-    width:100%; padding:14px; border:none; border-radius:12px;
-    background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer;
-}
+.login-box input{ width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:16px; }
+.login-box button{ width:100%; padding:14px; border:none; border-radius:12px; background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer; }
 #error-msg{ text-align:center; color:red; margin-top:12px; display:none; }
 
 /* APP */
 #app{ display:none; }
 
 /* HEADER */
-header{
-    background:linear-gradient(135deg,#1565C0,#0D47A1);
-    color:white; padding:16px 16px 0 16px;
-    position:sticky; top:0; z-index:100;
-}
+header{ background:linear-gradient(135deg,#1565C0,#0D47A1); color:white; padding:16px 16px 0 16px; position:sticky; top:0; z-index:100; }
 .top-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
 .logo{ display:flex; align-items:center; gap:12px; }
-.logo-icon{
-    width:55px; height:55px; border-radius:14px;
-    background:rgba(255,255,255,0.15);
-    display:flex; justify-content:center; align-items:center; font-size:30px;
-}
-.logo-text h1{ font-size:24px; }
-.logo-text p{ opacity:0.8; }
-.header-buttons{ display:flex; gap:10px; }
-.header-btn{
-    width:50px; height:50px; border:none; border-radius:14px;
-    background:rgba(255,255,255,0.12); color:white; font-size:22px; cursor:pointer;
-}
+.logo-icon{ width:55px; height:55px; border-radius:14px; background:rgba(255,255,255,0.15); display:flex; justify-content:center; align-items:center; font-size:30px; }
+.logo-text h1{ font-size:22px; }
+.logo-text p{ opacity:0.8; font-size:13px; }
+.header-buttons{ display:flex; gap:8px; }
+.header-btn{ width:46px; height:46px; border:none; border-radius:12px; background:rgba(255,255,255,0.12); color:white; font-size:20px; cursor:pointer; }
 .menu{ display:flex; justify-content:space-around; padding-bottom:10px; }
-.menu button{
-    flex:1; background:none; border:none;
-    color:rgba(255,255,255,0.6); padding:12px;
-    font-size:15px; font-weight:bold; cursor:pointer;
-}
+.menu button{ flex:1; background:none; border:none; color:rgba(255,255,255,0.6); padding:10px; font-size:14px; font-weight:bold; cursor:pointer; }
 .menu button.active{ color:white; border-bottom:4px solid white; }
 
 /* PÁGINAS */
 .page{ display:none; padding:16px 16px 100px 16px; }
 .page.active{ display:block; }
-.section-title{ margin:10px 0 18px 0; font-size:22px; color:#333; }
-.empty{ text-align:center; color:#999; margin-top:50px; }
+.section-title{ margin:10px 0 16px 0; font-size:20px; color:#333; font-weight:bold; }
+.empty{ text-align:center; color:#999; margin-top:50px; font-size:15px; }
 
-/* CARDS */
+/* CARDS HOME */
 .home-cards{ display:grid; gap:14px; margin-top:10px; }
-.info-card{
-    background:white; border-radius:18px; padding:18px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.08);
-}
-.info-card h3{ color:#555; margin-bottom:10px; font-size:15px; }
+.info-card{ background:white; border-radius:18px; padding:18px; box-shadow:0 3px 12px rgba(0,0,0,0.08); }
+.info-card h3{ color:#555; margin-bottom:10px; font-size:14px; }
 .info-value{ font-size:28px; font-weight:bold; }
 .green{ color:var(--green); }
 .red{ color:var(--red); }
-
-.info-card.clickable{ cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; }
+.info-card.clickable{ cursor:pointer; transition:transform 0.15s; }
 .info-card.clickable:active{ transform:scale(0.97); }
 .card-arrow{ display:flex; justify-content:space-between; align-items:center; }
-.arrow-icon{ font-size:20px; color:#bbb; }
+.arrow-icon{ font-size:22px; color:#bbb; }
 
 /* ANIVERSARIANTES */
-.birthday-card{
-    background:linear-gradient(135deg,#FFF8E1,#FFF3E0);
-    border:2px solid #FFB300;
-    border-radius:18px; padding:18px;
-    box-shadow:0 3px 12px rgba(255,152,0,0.15);
-}
-.birthday-card h3{ color:#E65100; margin-bottom:12px; font-size:15px; font-weight:bold; }
+.birthday-card{ background:linear-gradient(135deg,#FFF8E1,#FFF3E0); border:2px solid #FFB300; border-radius:18px; padding:18px; box-shadow:0 3px 12px rgba(255,152,0,0.15); }
+.birthday-card h3{ color:#E65100; margin-bottom:12px; font-size:14px; font-weight:bold; }
 .birthday-empty{ color:#aaa; font-size:14px; font-style:italic; }
 .birthday-list{ display:flex; flex-direction:column; gap:10px; }
-.birthday-person{
-    display:flex; align-items:center; gap:12px;
-    background:white; border-radius:12px; padding:12px 14px;
-    box-shadow:0 2px 6px rgba(255,152,0,0.12);
-    cursor:pointer; transition:transform 0.15s;
-}
+.birthday-person{ display:flex; align-items:center; gap:12px; background:white; border-radius:12px; padding:12px 14px; cursor:pointer; transition:transform 0.15s; }
 .birthday-person:active{ transform:scale(0.97); }
-.birthday-avatar{
-    width:40px; height:40px; border-radius:50%;
-    background:linear-gradient(135deg,#FFB300,#FF6F00);
-    display:flex; align-items:center; justify-content:center;
-    font-size:20px; flex-shrink:0;
-}
+.birthday-avatar{ width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#FFB300,#FF6F00); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
 .birthday-info{ flex:1; }
 .birthday-name{ font-weight:bold; color:#333; font-size:15px; }
 .birthday-date{ font-size:12px; color:var(--orange); margin-top:2px; }
-.birthday-days{
-    background:#FFB300; color:white;
-    border-radius:20px; padding:4px 10px;
-    font-size:12px; font-weight:bold; white-space:nowrap;
-}
+.birthday-days{ background:#FFB300; color:white; border-radius:20px; padding:4px 10px; font-size:12px; font-weight:bold; white-space:nowrap; }
 .birthday-days.today{ background:var(--red); animation:pulse 1s infinite; }
 @keyframes pulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
 
-/* EXCURSÕES */
-.excursion-card{
-    background:white; border-radius:18px; padding:16px;
-    margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-.excursion-card h3{ color:var(--blue); margin-bottom:8px; }
+/* LISTA EXCURSÕES */
+.excursion-card{ background:white; border-radius:18px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.08); cursor:pointer; transition:transform 0.15s; }
+.excursion-card:active{ transform:scale(0.98); }
+.excursion-card-header{ display:flex; justify-content:space-between; align-items:flex-start; }
+.excursion-card h3{ color:var(--blue); margin-bottom:6px; font-size:17px; }
+.excursion-card p{ color:#666; font-size:14px; margin-bottom:4px; }
+.excursion-badge{ background:var(--blue); color:white; border-radius:20px; padding:4px 12px; font-size:12px; font-weight:bold; white-space:nowrap; }
+.excursion-footer{ display:flex; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid #f0f0f0; }
+.excursion-stat{ flex:1; text-align:center; }
+.excursion-stat span{ display:block; font-size:18px; font-weight:bold; color:var(--blue); }
+.excursion-stat small{ font-size:11px; color:#999; }
 
-/* PASSAGEIRO DETALHE */
-.passenger-detail{
-    background:white; border-radius:18px; padding:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.08); margin-top:10px;
-}
-.passenger-detail h2{ color:var(--blue); margin-bottom:16px; }
-.passenger-detail p{ margin-bottom:10px; font-size:15px; color:#444; }
-.back-btn{
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--blue); color:white; border:none;
-    border-radius:12px; padding:10px 18px; font-size:15px;
-    font-weight:bold; cursor:pointer; margin-bottom:14px;
-}
+/* DETALHE EXCURSÃO */
+#detalhe-excursao{ display:none; padding:16px 16px 100px 16px; }
+.detalhe-header{ background:linear-gradient(135deg,#1565C0,#0D47A1); border-radius:18px; padding:20px; color:white; margin-bottom:16px; }
+.detalhe-header h2{ font-size:22px; margin-bottom:8px; }
+.detalhe-header p{ opacity:0.85; font-size:14px; margin-bottom:4px; }
+.detalhe-stats{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+.stat-card{ background:white; border-radius:14px; padding:14px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-card span{ display:block; font-size:24px; font-weight:bold; color:var(--blue); }
+.stat-card small{ font-size:12px; color:#999; }
+.passageiros-titulo{ font-size:17px; font-weight:bold; color:#333; margin-bottom:12px; }
 
-/* BOTÃO */
-.add-btn{
-    position:fixed; bottom:20px; left:20px; right:20px;
-    padding:18px; border:none; border-radius:20px;
-    background:var(--blue2); color:white;
-    font-size:20px; font-weight:bold;
-    box-shadow:0 5px 20px rgba(0,0,0,0.2); cursor:pointer;
-}
+/* CARD PASSAGEIRO */
+.passageiro-card{ background:white; border-radius:14px; padding:14px; margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); display:flex; align-items:center; gap:12px; cursor:pointer; transition:transform 0.15s; }
+.passageiro-card:active{ transform:scale(0.98); }
+.passageiro-avatar{ width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#1565C0,#42A5F5); display:flex; align-items:center; justify-content:center; color:white; font-size:18px; font-weight:bold; flex-shrink:0; }
+.passageiro-info{ flex:1; }
+.passageiro-nome{ font-weight:bold; color:#333; font-size:15px; }
+.passageiro-poltrona{ font-size:12px; color:var(--blue); margin-top:2px; }
+.passageiro-valor{ font-size:13px; font-weight:bold; color:var(--green); }
+
+/* MODAL */
+.modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; display:flex; align-items:flex-end; justify-content:center; }
+.modal-overlay.hidden{ display:none; }
+.modal{ background:white; border-radius:24px 24px 0 0; padding:24px; width:100%; max-width:600px; max-height:90vh; overflow-y:auto; }
+.modal h2{ color:var(--blue); margin-bottom:20px; font-size:20px; }
+.modal-field{ margin-bottom:16px; }
+.modal-field label{ display:block; font-size:13px; color:#666; margin-bottom:6px; font-weight:bold; }
+.modal-field input{ width:100%; padding:14px; border-radius:12px; border:1px solid #ddd; font-size:16px; background:#fafafa; }
+.modal-field input:focus{ outline:none; border-color:var(--blue); background:white; }
+.modal-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-btns{ display:flex; gap:10px; margin-top:8px; }
+.btn-cancelar{ flex:1; padding:14px; border:2px solid #ddd; border-radius:12px; background:white; color:#666; font-size:16px; font-weight:bold; cursor:pointer; }
+.btn-salvar{ flex:2; padding:14px; border:none; border-radius:12px; background:var(--blue); color:white; font-size:16px; font-weight:bold; cursor:pointer; }
+.btn-salvar:active{ background:var(--blue2); }
+
+/* BOTÕES */
+.add-btn{ position:fixed; bottom:20px; left:20px; right:20px; padding:16px; border:none; border-radius:20px; background:var(--blue2); color:white; font-size:18px; font-weight:bold; box-shadow:0 5px 20px rgba(0,0,0,0.2); cursor:pointer; z-index:50; }
+.back-btn{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.2); color:white; border:none; border-radius:12px; padding:8px 16px; font-size:15px; font-weight:bold; cursor:pointer; margin-bottom:12px; }
+.btn-editar-excursao{ width:100%; padding:12px; border:2px solid white; border-radius:12px; background:transparent; color:white; font-size:15px; font-weight:bold; cursor:pointer; margin-top:8px; }
 </style>
 </head>
 <body>
@@ -181,8 +156,6 @@ header{
             </div>
         </div>
         <div class="header-buttons">
-            <button class="header-btn">💾</button>
-            <button class="header-btn">🔍</button>
             <button class="header-btn" onclick="logout()">🚪</button>
         </div>
     </div>
@@ -210,57 +183,135 @@ header{
         </div>
         <div class="birthday-card">
             <h3>🎂 Aniversariantes da Semana</h3>
-            <div id="lista-aniversariantes">
-                <div class="birthday-empty">Carregando...</div>
-            </div>
+            <div id="lista-aniversariantes"><div class="birthday-empty">Carregando...</div></div>
         </div>
     </div>
 </div>
 
-<!-- EXCURSÕES -->
+<!-- EXCURSÕES (lista) -->
 <div id="excursoes" class="page">
-    <h2 class="section-title">🚌 Excursões Futuras</h2>
-    <div id="lista-excursoes">
-        <div class="empty">Nenhuma excursão cadastrada</div>
+    <h2 class="section-title">🚌 Excursões</h2>
+    <div id="lista-excursoes"><div class="empty">Nenhuma excursão cadastrada</div></div>
+</div>
+
+<!-- DETALHE EXCURSÃO -->
+<div id="detalhe-excursao">
+    <div style="padding:16px 16px 0 16px; background:linear-gradient(135deg,#1565C0,#0D47A1);">
+        <button class="back-btn" onclick="voltarExcursoes()">← Voltar</button>
+    </div>
+    <div style="padding:0 16px 100px 16px;">
+        <div class="detalhe-header" id="detalhe-header-info"></div>
+        <div class="detalhe-stats" id="detalhe-stats"></div>
+        <p class="passageiros-titulo">👥 Passageiros</p>
+        <div id="lista-passageiros-excursao"></div>
     </div>
 </div>
 
 <!-- CLIENTES -->
 <div id="clientes" class="page">
     <h2 class="section-title">👥 Clientes</h2>
-    <div id="clientes-lista">
-        <div class="empty">Área de clientes em construção</div>
-    </div>
-    <div id="passageiro-detalhe" style="display:none;">
-        <button class="back-btn" onclick="voltarClientes()">← Voltar</button>
-        <div class="passenger-detail" id="passageiro-dados"></div>
+    <div class="empty">Em construção</div>
+</div>
+
+<!-- BOTÃO FLUTUANTE -->
+<button class="add-btn" id="add-btn-global" onclick="acaoBotao()">➕ Nova Excursão</button>
+
+<!-- MODAL NOVA/EDITAR EXCURSÃO -->
+<div class="modal-overlay hidden" id="modal-excursao">
+    <div class="modal">
+        <h2 id="modal-excursao-titulo">✏️ Excursão</h2>
+        <div class="modal-field">
+            <label>Destino</label>
+            <input type="text" id="campo-destino" placeholder="Ex: Maceió">
+        </div>
+        <div class="modal-row">
+            <div class="modal-field">
+                <label>Data</label>
+                <input type="date" id="campo-data">
+            </div>
+            <div class="modal-field">
+                <label>Valor (R$)</label>
+                <input type="number" id="campo-valor" placeholder="0,00">
+            </div>
+        </div>
+        <div class="modal-field">
+            <label>Total de poltronas</label>
+            <input type="number" id="campo-poltronas" placeholder="Ex: 44">
+        </div>
+        <div class="modal-btns">
+            <button class="btn-cancelar" onclick="fecharModalExcursao()">Cancelar</button>
+            <button class="btn-salvar" onclick="salvarExcursao()">💾 Salvar</button>
+        </div>
     </div>
 </div>
 
-<button class="add-btn" onclick="novaExcursao()">➕ Nova Excursão</button>
+<!-- MODAL NOVO PASSAGEIRO -->
+<div class="modal-overlay hidden" id="modal-passageiro">
+    <div class="modal">
+        <h2>👤 Novo Passageiro</h2>
+        <div class="modal-field">
+            <label>Nome Completo</label>
+            <input type="text" id="p-nome" placeholder="Nome completo">
+        </div>
+        <div class="modal-row">
+            <div class="modal-field">
+                <label>CPF</label>
+                <input type="text" id="p-cpf" placeholder="000.000.000-00" maxlength="14">
+            </div>
+            <div class="modal-field">
+                <label>RG</label>
+                <input type="text" id="p-rg" placeholder="0000000">
+            </div>
+        </div>
+        <div class="modal-row">
+            <div class="modal-field">
+                <label>Data de Nascimento</label>
+                <input type="date" id="p-nascimento">
+            </div>
+            <div class="modal-field">
+                <label>Nº da Poltrona</label>
+                <input type="number" id="p-poltrona" placeholder="Ex: 12">
+            </div>
+        </div>
+        <div class="modal-row">
+            <div class="modal-field">
+                <label>Valor de Entrada (R$)</label>
+                <input type="number" id="p-entrada" placeholder="0,00">
+            </div>
+            <div class="modal-field">
+                <label>Valor Total (R$)</label>
+                <input type="number" id="p-total" placeholder="0,00">
+            </div>
+        </div>
+        <div class="modal-btns">
+            <button class="btn-cancelar" onclick="fecharModalPassageiro()">Cancelar</button>
+            <button class="btn-salvar" onclick="salvarPassageiro()">💾 Salvar</button>
+        </div>
+    </div>
 </div>
 
-<!-- Firebase compat (funciona sem type=module) -->
+</div><!-- fim #app -->
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
 <script>
-// Inicializa Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyC7LtIMIRduJayU-W4LVfCy08pyanGwz-A",
-  authDomain: "mala-pronta-gemin.firebaseapp.com",
-  projectId: "mala-pronta-gemin",
-  storageBucket: "mala-pronta-gemin.firebasestorage.app",
-  messagingSenderId: "791215195275",
-  appId: "1:791215195275:web:10442f350b7e31c285c08e"
-};
+firebase.initializeApp({
+    apiKey: "AIzaSyC7LtIMIRduJayU-W4LVfCy08pyanGwz-A",
+    authDomain: "mala-pronta-gemin.firebaseapp.com",
+    projectId: "mala-pronta-gemin",
+    storageBucket: "mala-pronta-gemin.firebasestorage.app",
+    messagingSenderId: "791215195275",
+    appId: "1:791215195275:web:10442f350b7e31c285c08e"
+});
+var db   = firebase.firestore();
+var auth = firebase.auth();
 
-firebase.initializeApp(firebaseConfig);
-const db   = firebase.firestore();
-const auth = firebase.auth();
+var excursaoAtualId   = null;
+var excursaoAtualDados = null;
+var paginaAtual = 'inicio';
 
-// ─── AUTH STATE ───
+// ─── AUTH ───
 auth.onAuthStateChanged(function(user){
     if(user){
         document.getElementById("login-screen").style.display = "none";
@@ -278,142 +329,350 @@ function fazerLogin(){
     var email = document.getElementById("email").value.trim();
     var senha = document.getElementById("senha").value;
     var errDiv = document.getElementById("error-msg");
-    errDiv.style.display = "none";
-
-    if(!email || !senha){
-        errDiv.style.display = "block";
-        errDiv.innerText = "Preencha email e senha.";
-        return;
-    }
-
     errDiv.style.display = "block";
     errDiv.style.color = "#1565C0";
     errDiv.innerText = "Entrando...";
-
     auth.signInWithEmailAndPassword(email, senha)
-        .then(function(){
-            errDiv.style.display = "none";
-        })
-        .catch(function(error){
-            errDiv.style.display = "block";
+        .then(function(){ errDiv.style.display = "none"; })
+        .catch(function(e){
             errDiv.style.color = "red";
-            // Mostra o código real do erro para diagnóstico
             var msgs = {
-                "auth/user-not-found":    "Usuário não encontrado.",
-                "auth/wrong-password":    "Senha incorreta.",
-                "auth/invalid-email":     "Email inválido.",
+                "auth/user-not-found":"Usuário não encontrado.",
+                "auth/wrong-password":"Senha incorreta.",
+                "auth/invalid-email":"Email inválido.",
                 "auth/invalid-credential":"Email ou senha incorretos.",
-                "auth/too-many-requests": "Muitas tentativas. Tente mais tarde.",
-                "auth/network-request-failed": "Sem conexão com a internet."
+                "auth/too-many-requests":"Muitas tentativas. Tente mais tarde.",
+                "auth/network-request-failed":"Sem conexão."
             };
-            errDiv.innerText = msgs[error.code] || ("Erro: " + error.code);
+            errDiv.innerText = msgs[e.code] || ("Erro: " + e.code);
         });
 }
 
-// ─── LOGOUT ───
-function logout(){
-    auth.signOut();
-}
+function logout(){ auth.signOut(); }
 
-// ─── TROCAR PÁGINA ───
+// ─── NAVEGAÇÃO ───
 function trocarPagina(id, menuId){
+    // Esconde detalhe se estiver aberto
+    document.getElementById("detalhe-excursao").style.display = "none";
     document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
     document.querySelectorAll(".menu button").forEach(function(b){ b.classList.remove("active"); });
     document.getElementById(id).classList.add("active");
     document.getElementById(menuId).classList.add("active");
-    // Ao sair de clientes, reseta o detalhe
-    if(id !== "clientes") voltarClientes();
+    paginaAtual = id;
+    atualizarBotao();
 }
 
-// ─── NOVA EXCURSÃO ───
-function novaExcursao(){
-    var destino = prompt("Destino da excursão:");
-    if(!destino) return;
-    var data = prompt("Data da excursão:");
-    if(!data) return;
-    var valor = prompt("Valor da excursão (apenas números):");
-    if(!valor) return;
-
-    db.collection("excursoes").add({
-        destino: destino,
-        data: data,
-        valor: Number(valor),
-        criadoEm: Date.now()
-    }).then(function(){
-        alert("Excursão criada!");
-    }).catch(function(e){
-        alert(e.message);
-    });
+function atualizarBotao(){
+    var btn = document.getElementById("add-btn-global");
+    if(paginaAtual === 'excursoes'){
+        btn.innerText = "➕ Nova Excursão";
+        btn.style.display = "block";
+    } else if(paginaAtual === 'detalhe'){
+        btn.innerText = "➕ Novo Passageiro";
+        btn.style.display = "block";
+    } else if(paginaAtual === 'inicio'){
+        btn.style.display = "none";
+    } else {
+        btn.style.display = "none";
+    }
 }
 
-// ─── LISTAR EXCURSÕES ───
+function acaoBotao(){
+    if(paginaAtual === 'excursoes'){
+        abrirModalExcursao(null);
+    } else if(paginaAtual === 'detalhe'){
+        abrirModalPassageiro();
+    }
+}
+
+// ─── EXCURSÕES ───
 function carregarExcursoes(){
-    db.collection("excursoes")
-      .orderBy("criadoEm","desc")
-      .onSnapshot(function(snapshot){
+    db.collection("excursoes").orderBy("criadoEm","desc").onSnapshot(function(snapshot){
         var lista = document.getElementById("lista-excursoes");
         var totalEl = document.getElementById("total-ativas");
         var rendaEl = document.getElementById("renda-mes");
-
         lista.innerHTML = "";
         var total = 0, renda = 0;
 
         if(snapshot.empty){
-            lista.innerHTML = '<div class="empty">Nenhuma excursão cadastrada</div>';
+            lista.innerHTML = '<div class="empty">Nenhuma excursão cadastrada<br><small>Clique em "Nova Excursão" para começar</small></div>';
         }
 
+        var promises = [];
         snapshot.forEach(function(doc){
             var d = doc.data();
             total++;
             renda += Number(d.valor || 0);
-            lista.innerHTML += '<div class="excursion-card">'
-                + '<h3>📍 ' + d.destino + '</h3>'
-                + '<p>📅 ' + d.data + '</p>'
-                + '<p>💰 R$ ' + Number(d.valor).toFixed(2) + '</p>'
-                + '</div>';
+            promises.push(
+                db.collection("excursoes").doc(doc.id).collection("passageiros").get()
+                .then(function(pSnap){
+                    var qtd = pSnap.size;
+                    var poltronas = Number(d.poltronas || 0);
+                    var restantes = poltronas > 0 ? poltronas - qtd : "—";
+                    var dataFmt = d.data ? formatarData(d.data) : "—";
+                    lista.innerHTML += '<div class="excursion-card" onclick="abrirDetalhe(\'' + doc.id + '\')">'
+                        + '<div class="excursion-card-header">'
+                        +   '<div><h3>📍 ' + d.destino + '</h3>'
+                        +   '<p>📅 ' + dataFmt + '</p>'
+                        +   '<p>💰 R$ ' + Number(d.valor).toFixed(2) + '</p></div>'
+                        +   '<span class="excursion-badge">' + qtd + ' passageiros</span>'
+                        + '</div>'
+                        + '<div class="excursion-footer">'
+                        +   '<div class="excursion-stat"><span>' + qtd + '</span><small>Passageiros</small></div>'
+                        +   '<div class="excursion-stat"><span>' + (poltronas || "—") + '</span><small>Poltronas</small></div>'
+                        +   '<div class="excursion-stat"><span>' + restantes + '</span><small>Disponíveis</small></div>'
+                        + '</div>'
+                        + '</div>';
+                })
+            );
         });
 
-        totalEl.innerText = total;
-        rendaEl.innerText = "R$ " + renda.toFixed(2);
-        rendaEl.className = "info-value " + (renda < 0 ? "red" : "green");
+        Promise.all(promises).then(function(){
+            totalEl.innerText = total;
+            rendaEl.innerText = "R$ " + renda.toFixed(2);
+            rendaEl.className = "info-value " + (renda < 0 ? "red" : "green");
+        });
     });
 }
 
-// ─── ANIVERSARIANTES DA SEMANA ───
-var todosPassageiros = {};
+function formatarData(str){
+    if(!str) return "—";
+    if(str.indexOf("-") > -1){
+        var p = str.split("-");
+        return p[2] + "/" + p[1] + "/" + p[0];
+    }
+    return str;
+}
 
+// ─── MODAL EXCURSÃO ───
+var editandoExcursaoId = null;
+
+function abrirModalExcursao(id){
+    editandoExcursaoId = id;
+    document.getElementById("modal-excursao-titulo").innerText = id ? "✏️ Editar Excursão" : "➕ Nova Excursão";
+    if(id && excursaoAtualDados){
+        document.getElementById("campo-destino").value = excursaoAtualDados.destino || "";
+        document.getElementById("campo-data").value    = excursaoAtualDados.data    || "";
+        document.getElementById("campo-valor").value   = excursaoAtualDados.valor   || "";
+        document.getElementById("campo-poltronas").value = excursaoAtualDados.poltronas || "";
+    } else {
+        document.getElementById("campo-destino").value  = "";
+        document.getElementById("campo-data").value     = "";
+        document.getElementById("campo-valor").value    = "";
+        document.getElementById("campo-poltronas").value = "";
+    }
+    document.getElementById("modal-excursao").classList.remove("hidden");
+}
+
+function fecharModalExcursao(){
+    document.getElementById("modal-excursao").classList.add("hidden");
+}
+
+function salvarExcursao(){
+    var destino  = document.getElementById("campo-destino").value.trim();
+    var data     = document.getElementById("campo-data").value;
+    var valor    = document.getElementById("campo-valor").value;
+    var poltronas = document.getElementById("campo-poltronas").value;
+    if(!destino){ alert("Informe o destino!"); return; }
+
+    var dados = { destino:destino, data:data, valor:Number(valor), poltronas:Number(poltronas) };
+
+    if(editandoExcursaoId){
+        db.collection("excursoes").doc(editandoExcursaoId).update(dados)
+        .then(function(){
+            fecharModalExcursao();
+            excursaoAtualDados = Object.assign(excursaoAtualDados, dados);
+            renderizarDetalheHeader();
+        }).catch(function(e){ alert(e.message); });
+    } else {
+        dados.criadoEm = Date.now();
+        db.collection("excursoes").add(dados)
+        .then(function(){ fecharModalExcursao(); })
+        .catch(function(e){ alert(e.message); });
+    }
+}
+
+// ─── DETALHE EXCURSÃO ───
+function abrirDetalhe(id){
+    excursaoAtualId = id;
+    db.collection("excursoes").doc(id).get().then(function(doc){
+        excursaoAtualDados = doc.data();
+        renderizarDetalheHeader();
+        carregarPassageirosExcursao(id);
+
+        // Esconde pages, mostra detalhe
+        document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+        document.getElementById("detalhe-excursao").style.display = "block";
+        document.getElementById("add-btn-global").style.display = "block";
+        document.getElementById("add-btn-global").innerText = "➕ Novo Passageiro";
+        paginaAtual = 'detalhe';
+    });
+}
+
+function renderizarDetalheHeader(){
+    var d = excursaoAtualDados;
+    document.getElementById("detalhe-header-info").innerHTML =
+        '<button class="back-btn" style="display:none"></button>'
+        + '<h2>📍 ' + d.destino + '</h2>'
+        + '<p>📅 ' + formatarData(d.data) + '</p>'
+        + '<p>💰 Valor: R$ ' + Number(d.valor).toFixed(2) + '</p>'
+        + (d.poltronas ? '<p>🪑 Poltronas: ' + d.poltronas + '</p>' : '')
+        + '<button class="btn-editar-excursao" onclick="abrirModalExcursao(\'' + excursaoAtualId + '\')">✏️ Editar Excursão</button>';
+}
+
+function carregarPassageirosExcursao(excursaoId){
+    db.collection("excursoes").doc(excursaoId).collection("passageiros")
+    .orderBy("criadoEm","asc")
+    .onSnapshot(function(snapshot){
+        var lista = document.getElementById("lista-passageiros-excursao");
+        var statsEl = document.getElementById("detalhe-stats");
+        lista.innerHTML = "";
+
+        var qtd = snapshot.size;
+        var poltronas = Number(excursaoAtualDados.poltronas || 0);
+        var totalArrecadado = 0;
+
+        if(snapshot.empty){
+            lista.innerHTML = '<div class="empty" style="margin-top:20px">Nenhum passageiro ainda<br><small>Clique em "Novo Passageiro"</small></div>';
+        }
+
+        snapshot.forEach(function(doc){
+            var p = doc.data();
+            totalArrecadado += Number(p.entrada || 0);
+            var iniciais = (p.nome || "?").split(" ").map(function(n){ return n[0]; }).slice(0,2).join("").toUpperCase();
+            var restante = Number(p.total || 0) - Number(p.entrada || 0);
+            lista.innerHTML += '<div class="passageiro-card" onclick="verPassageiro(\'' + excursaoId + '\',\'' + doc.id + '\')">'
+                + '<div class="passageiro-avatar">' + iniciais + '</div>'
+                + '<div class="passageiro-info">'
+                +   '<div class="passageiro-nome">' + (p.nome || "—") + '</div>'
+                +   '<div class="passageiro-poltrona">🪑 Poltrona ' + (p.poltrona || "—") + ' · CPF: ' + (p.cpf || "—") + '</div>'
+                + '</div>'
+                + '<div style="text-align:right">'
+                +   '<div class="passageiro-valor">R$ ' + Number(p.entrada||0).toFixed(2) + '</div>'
+                +   '<div style="font-size:11px;color:#999">Falta: R$ ' + restante.toFixed(2) + '</div>'
+                + '</div>'
+                + '</div>';
+        });
+
+        statsEl.innerHTML =
+            '<div class="stat-card"><span>' + qtd + '</span><small>Passageiros</small></div>'
+            + '<div class="stat-card"><span>' + (poltronas > 0 ? poltronas - qtd : "—") + '</span><small>Vagas livres</small></div>'
+            + '<div class="stat-card"><span>R$ ' + totalArrecadado.toFixed(2) + '</span><small>Arrecadado</small></div>'
+            + '<div class="stat-card"><span>' + (poltronas > 0 ? Math.round(qtd/poltronas*100) + "%" : "—") + '</span><small>Ocupação</small></div>';
+    });
+}
+
+function voltarExcursoes(){
+    document.getElementById("detalhe-excursao").style.display = "none";
+    trocarPagina("excursoes","menu-excursoes");
+}
+
+// ─── MODAL PASSAGEIRO ───
+function abrirModalPassageiro(){
+    document.getElementById("p-nome").value      = "";
+    document.getElementById("p-cpf").value       = "";
+    document.getElementById("p-rg").value        = "";
+    document.getElementById("p-nascimento").value = "";
+    document.getElementById("p-poltrona").value  = "";
+    document.getElementById("p-entrada").value   = "";
+    document.getElementById("p-total").value     = "";
+    document.getElementById("modal-passageiro").classList.remove("hidden");
+}
+
+function fecharModalPassageiro(){
+    document.getElementById("modal-passageiro").classList.add("hidden");
+}
+
+// Máscara CPF
+document.getElementById("p-cpf").addEventListener("input", function(){
+    var v = this.value.replace(/\D/g,"").substring(0,11);
+    v = v.replace(/(\d{3})(\d)/,"$1.$2");
+    v = v.replace(/(\d{3})(\d)/,"$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+    this.value = v;
+});
+
+function salvarPassageiro(){
+    var nome      = document.getElementById("p-nome").value.trim();
+    var cpf       = document.getElementById("p-cpf").value.trim();
+    var rg        = document.getElementById("p-rg").value.trim();
+    var nascimento = document.getElementById("p-nascimento").value;
+    var poltrona  = document.getElementById("p-poltrona").value;
+    var entrada   = document.getElementById("p-entrada").value;
+    var total     = document.getElementById("p-total").value;
+
+    if(!nome){ alert("Informe o nome do passageiro!"); return; }
+
+    db.collection("excursoes").doc(excursaoAtualId).collection("passageiros").add({
+        nome: nome,
+        cpf: cpf,
+        rg: rg,
+        dataNascimento: nascimento,
+        poltrona: Number(poltrona),
+        entrada: Number(entrada),
+        total: Number(total),
+        criadoEm: Date.now()
+    }).then(function(){
+        fecharModalPassageiro();
+    }).catch(function(e){ alert(e.message); });
+}
+
+// ─── VER PASSAGEIRO (detalhe simples por enquanto) ───
+function verPassageiro(excursaoId, passageiroId){
+    db.collection("excursoes").doc(excursaoId).collection("passageiros").doc(passageiroId).get()
+    .then(function(doc){
+        var p = doc.data();
+        var restante = Number(p.total||0) - Number(p.entrada||0);
+        var msg = "👤 " + p.nome
+            + "\n📄 CPF: " + (p.cpf||"—")
+            + "\n🪪 RG: " + (p.rg||"—")
+            + "\n🎂 Nascimento: " + (formatarData(p.dataNascimento)||"—")
+            + "\n🪑 Poltrona: " + (p.poltrona||"—")
+            + "\n💰 Entrada: R$ " + Number(p.entrada||0).toFixed(2)
+            + "\n💳 Total: R$ " + Number(p.total||0).toFixed(2)
+            + "\n⏳ Falta pagar: R$ " + restante.toFixed(2);
+        alert(msg);
+    });
+}
+
+// ─── ANIVERSARIANTES ───
 function carregarAniversariantes(){
-    db.collection("passageiros").get().then(function(snap){
-        todosPassageiros = {};
+    db.collection("excursoes").get().then(function(excSnap){
+        var promises = [];
+        excSnap.forEach(function(exc){
+            promises.push(
+                db.collection("excursoes").doc(exc.id).collection("passageiros").get()
+                .then(function(pSnap){
+                    var lista = [];
+                    pSnap.forEach(function(doc){
+                        var p = doc.data();
+                        p._id = doc.id;
+                        p._excursaoId = exc.id;
+                        lista.push(p);
+                    });
+                    return lista;
+                })
+            );
+        });
+        return Promise.all(promises);
+    }).then(function(listas){
+        var todos = [].concat.apply([], listas);
         var hoje = new Date();
         var aniversariantes = [];
 
-        snap.forEach(function(doc){
-            var p = doc.data();
-            todosPassageiros[doc.id] = Object.assign({ id: doc.id }, p);
-
-            var raw = p.dataNascimento || p.data_nascimento || p.nascimento || "";
+        todos.forEach(function(p){
+            var raw = p.dataNascimento || "";
             if(!raw) return;
-
-            var dataNasc = parsarData(raw);
-            if(!dataNasc) return;
-
-            var anivEsteAno = new Date(hoje.getFullYear(), dataNasc.getMonth(), dataNasc.getDate());
-            var diffMs = anivEsteAno.getTime() - new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()).getTime();
-            var diffDias = Math.round(diffMs / (1000*60*60*24));
-
-            if(diffDias >= 0 && diffDias <= 6){
-                aniversariantes.push({
-                    id: doc.id,
-                    nome: p.nome || p.name || "Sem nome",
-                    dataNascimento: raw,
-                    diffDias: diffDias
-                });
+            var nasc = parsarData(raw);
+            if(!nasc) return;
+            var aniv = new Date(hoje.getFullYear(), nasc.getMonth(), nasc.getDate());
+            var diff = Math.round((aniv - new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())) / 86400000);
+            if(diff >= 0 && diff <= 6){
+                aniversariantes.push({ nome: p.nome||"Sem nome", dataNascimento: raw, diffDias: diff, id: p._id, excId: p._excursaoId });
             }
         });
 
         aniversariantes.sort(function(a,b){ return a.diffDias - b.diffDias; });
-
         var container = document.getElementById("lista-aniversariantes");
 
         if(aniversariantes.length === 0){
@@ -425,31 +684,25 @@ function carregarAniversariantes(){
         aniversariantes.forEach(function(p){
             var label = p.diffDias === 0 ? "🎉 Hoje!" : "em " + p.diffDias + "d";
             var cls   = p.diffDias === 0 ? "birthday-days today" : "birthday-days";
-            html += '<div class="birthday-person" onclick="abrirPassageiro(\'' + p.id + '\')">'
+            html += '<div class="birthday-person">'
                 + '<div class="birthday-avatar">🎂</div>'
-                + '<div class="birthday-info">'
-                +   '<div class="birthday-name">' + p.nome + '</div>'
-                +   '<div class="birthday-date">📅 ' + p.dataNascimento + '</div>'
-                + '</div>'
+                + '<div class="birthday-info"><div class="birthday-name">' + p.nome + '</div>'
+                + '<div class="birthday-date">📅 ' + p.dataNascimento + '</div></div>'
                 + '<div class="' + cls + '">' + label + '</div>'
                 + '</div>';
         });
         html += '</div>';
         container.innerHTML = html;
-
     }).catch(function(e){
-        console.error("Erro aniversariantes:", e);
-        document.getElementById("lista-aniversariantes").innerHTML =
-            '<div class="birthday-empty">Nenhum aniversariante esta semana</div>';
+        console.error(e);
+        document.getElementById("lista-aniversariantes").innerHTML = '<div class="birthday-empty">Nenhum aniversariante esta semana</div>';
     });
 }
 
-// ─── PARSEAR DATA ───
 function parsarData(str){
     if(!str) return null;
     if(str.indexOf("/") > -1){
         var p = str.split("/");
-        if(p.length < 3) return null;
         return new Date(Number(p[2]), Number(p[1])-1, Number(p[0]));
     }
     if(str.indexOf("-") > -1){
@@ -459,40 +712,8 @@ function parsarData(str){
     return null;
 }
 
-// ─── ABRIR PASSAGEIRO ───
-function abrirPassageiro(id){
-    var p = todosPassageiros[id];
-    trocarPagina("clientes","menu-clientes");
-
-    document.getElementById("clientes-lista").style.display = "none";
-    document.getElementById("passageiro-detalhe").style.display = "block";
-
-    var box = document.getElementById("passageiro-dados");
-    if(!p){ box.innerHTML = "<p>Passageiro não encontrado.</p>"; return; }
-
-    var campos = [
-        { label:"👤 Nome",        valor: p.nome || p.name },
-        { label:"📅 Nascimento",  valor: p.dataNascimento || p.data_nascimento || p.nascimento },
-        { label:"📞 Telefone",    valor: p.telefone || p.phone },
-        { label:"📧 Email",       valor: p.email },
-        { label:"🚌 Excursão",    valor: p.excursao },
-        { label:"💰 Valor Pago",  valor: p.valorPago ? "R$ " + p.valorPago : null },
-        { label:"📝 Observações", valor: p.obs || p.observacoes },
-    ].filter(function(c){ return c.valor; });
-
-    var html = "<h2>Cadastro do Passageiro</h2>";
-    campos.forEach(function(c){ html += "<p><strong>" + c.label + ":</strong> " + c.valor + "</p>"; });
-    if(campos.length === 0) html += '<p style="color:#aaa">Nenhuma informação cadastrada.</p>';
-    box.innerHTML = html;
-}
-
-// ─── VOLTAR CLIENTES ───
-function voltarClientes(){
-    var lista = document.getElementById("clientes-lista");
-    var det   = document.getElementById("passageiro-detalhe");
-    if(lista) lista.style.display = "block";
-    if(det)   det.style.display   = "none";
-}
+// Inicia com botão invisível
+atualizarBotao();
 </script>
 </body>
 </html>
