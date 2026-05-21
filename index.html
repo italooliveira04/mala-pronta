@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mala Pronta Sergipe</title>
 
@@ -31,175 +28,112 @@ body{
     background:var(--bg);
 }
 
-#app{
-    display:block;
-}
-
 header{
     background:linear-gradient(135deg,#1565C0,#0D47A1);
     color:white;
-    padding:16px 16px 0 16px;
-    position:sticky;
-    top:0;
-    z-index:100;
+    padding:20px;
 }
 
-.top-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:16px;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo-icon{
-    width:55px;
-    height:55px;
-    border-radius:14px;
-    background:rgba(255,255,255,0.15);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:30px;
-}
-
-.logo-text h1{
-    font-size:22px;
-}
-
-.logo-text p{
-    opacity:0.8;
+header h1{
+    font-size:24px;
 }
 
 .menu{
     display:flex;
-    justify-content:space-around;
-    padding-bottom:10px;
+    margin-top:20px;
+    gap:10px;
 }
 
 .menu button{
     flex:1;
-    background:none;
     border:none;
-    color:rgba(255,255,255,0.6);
+    border-radius:12px;
     padding:12px;
-    font-size:15px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.menu button.active{
-    color:white;
-    border-bottom:4px solid white;
-}
-
 .page{
     display:none;
-    padding:16px 16px 100px 16px;
+    padding:16px;
 }
 
 .page.active{
     display:block;
 }
 
-.section-title{
-    margin:10px 0 18px 0;
-    font-size:22px;
-    color:#333;
-}
-
-.home-cards{
-    display:grid;
-    gap:14px;
-}
-
-.info-card{
+.card{
     background:white;
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.08);
-}
-
-.info-card.clickable{
-    cursor:pointer;
-}
-
-.info-value{
-    font-size:28px;
-    font-weight:bold;
-}
-
-.green{
-    color:var(--green);
-}
-
-.red{
-    color:var(--red);
-}
-
-.card-arrow{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.excursion-card{
-    background:white;
-    border-radius:18px;
+    border-radius:16px;
     padding:16px;
     margin-bottom:14px;
     box-shadow:0 2px 10px rgba(0,0,0,0.08);
-    cursor:pointer;
 }
 
-.excursion-card:active{
-    transform:scale(0.98);
-}
-
-.excursion-card h3{
-    color:var(--blue);
-    margin-bottom:8px;
-}
-
-.empty{
-    text-align:center;
-    color:#999;
-    margin-top:50px;
+.card h3{
+    color:#1565C0;
+    margin-bottom:10px;
 }
 
 .add-btn{
     position:fixed;
     bottom:20px;
-    left:20px;
     right:20px;
-    padding:18px;
+    width:65px;
+    height:65px;
     border:none;
-    border-radius:20px;
-    background:var(--blue2);
+    border-radius:50%;
+    background:#1565C0;
     color:white;
-    font-size:20px;
+    font-size:30px;
+    cursor:pointer;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+    border-radius:12px;
+    border:1px solid #ccc;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:500px;
+    border-radius:20px;
+    padding:20px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+}
+
+.save-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:#1565C0;
+    color:white;
+    font-size:18px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.passenger-detail{
-    background:white;
-    border-radius:18px;
-    padding:20px;
-}
-
-.back-btn{
-    background:var(--blue);
-    color:white;
-    border:none;
-    border-radius:12px;
-    padding:10px 18px;
-    margin-bottom:14px;
+.cliente-item{
     cursor:pointer;
 }
 
@@ -209,59 +143,22 @@ header{
 
 <body>
 
-<div id="app">
-
 <header>
 
-<div class="top-header">
-
-<div class="logo">
-
-<div class="logo-icon">
-🚌
-</div>
-
-<div class="logo-text">
-
-<h1>
-Mala Pronta Sergipe
-</h1>
-
-<p>
-Gerenciador de Excursões
-</p>
-
-</div>
-
-</div>
-
-</div>
+<h1>🚌 Mala Pronta Sergipe</h1>
 
 <div class="menu">
 
-<button
-id="menu-inicio"
-class="active"
-onclick="trocarPagina('inicio','menu-inicio')">
-
-🏠<br>Início
-
+<button onclick="abrirPagina('inicio')">
+🏠 Início
 </button>
 
-<button
-id="menu-excursoes"
-onclick="trocarPagina('excursoes','menu-excursoes')">
-
-🚌<br>Excursões
-
+<button onclick="abrirPagina('excursoes')">
+🚌 Excursões
 </button>
 
-<button
-id="menu-clientes"
-onclick="trocarPagina('clientes','menu-clientes')">
-
-👥<br>Clientes
-
+<button onclick="abrirPagina('clientes')">
+👥 Clientes
 </button>
 
 </div>
@@ -270,122 +167,83 @@ onclick="trocarPagina('clientes','menu-clientes')">
 
 <div id="inicio" class="page active">
 
-<h2 class="section-title">
+<div class="card">
+<h3>Excursões Ativas</h3>
+<h1 id="total-excursoes">0</h1>
+</div>
 
-📊 Painel Geral
-
-</h2>
-
-<div class="home-cards">
-
-<div
-class="info-card clickable"
-onclick="trocarPagina('excursoes','menu-excursoes')">
-
-<h3>
-Excursões Ativas
-</h3>
-
-<div class="card-arrow">
-
-<div
-class="info-value"
-id="total-ativas">
-
-0
-
+<div class="card">
+<h3>Renda do Mês</h3>
+<h1 id="renda">R$ 0,00</h1>
 </div>
 
 </div>
 
-</div>
-
-<div class="info-card">
-
-<h3>
-Renda do Mês
-</h3>
-
-<div
-class="info-value green"
-id="renda-mes">
-
-R$ 0,00
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 <div id="excursoes" class="page">
 
-<h2 class="section-title">
-
-🚌 Excursões
-
-</h2>
-
-<div id="lista-excursoes">
-
-<div class="empty">
-
-Nenhuma excursão cadastrada
-
-</div>
-
-</div>
+<div id="lista-excursoes"></div>
 
 </div>
 
 <div id="clientes" class="page">
 
-<h2 class="section-title">
-
-👥 Clientes
-
-</h2>
-
-<div id="clientes-lista">
-
-<div class="empty">
-
-Nenhum cliente cadastrado
+<div id="lista-clientes"></div>
 
 </div>
 
-</div>
-
-<div
-id="passageiro-detalhe"
-style="display:none;">
-
-<button
-class="back-btn"
-onclick="voltarClientes()">
-
-← Voltar
-
+<button class="add-btn" onclick="abrirModalExcursao()">
++
 </button>
 
-<div
-class="passenger-detail"
-id="passageiro-dados">
+<!-- MODAL EXCURSÃO -->
 
-</div>
+<div class="modal" id="modal-excursao">
 
-</div>
+<div class="modal-box">
 
-</div>
+<h2>Nova Excursão</h2>
 
-<button
-class="add-btn"
-onclick="novaExcursao()">
+<input id="destino" placeholder="Destino">
 
-➕ Nova Excursão
+<input id="data" placeholder="Data">
 
+<input id="valor" placeholder="Valor">
+
+<button class="save-btn" onclick="salvarExcursao()">
+Salvar Excursão
 </button>
+
+</div>
+
+</div>
+
+<!-- MODAL PASSAGEIRO -->
+
+<div class="modal" id="modal-passageiro">
+
+<div class="modal-box">
+
+<h2>Novo Passageiro</h2>
+
+<input id="p-nome" placeholder="Nome Completo">
+
+<input id="p-cpf" placeholder="CPF">
+
+<input id="p-rg" placeholder="RG">
+
+<input id="p-nascimento" placeholder="Data de nascimento">
+
+<input id="p-poltrona" placeholder="Poltrona">
+
+<input id="p-entrada" placeholder="Valor entrada">
+
+<input id="p-total" placeholder="Valor total">
+
+<button class="save-btn" onclick="salvarPassageiro()">
+Salvar Passageiro
+</button>
+
+</div>
 
 </div>
 
@@ -397,22 +255,17 @@ onclick="novaExcursao()">
 
 const firebaseConfig = {
 
-  apiKey: "SUA_API_KEY",
+  apiKey: "SUA_API",
 
-  authDomain:
-  "mala-pronta-gemin.firebaseapp.com",
+  authDomain: "mala-pronta-gemin.firebaseapp.com",
 
-  projectId:
-  "mala-pronta-gemin",
+  projectId: "mala-pronta-gemin",
 
-  storageBucket:
-  "mala-pronta-gemin.firebasestorage.app",
+  storageBucket: "mala-pronta-gemin.firebasestorage.app",
 
-  messagingSenderId:
-  "791215195275",
+  messagingSenderId: "791215195275",
 
-  appId:
-  "1:791215195275:web:10442f350b7e31c285c08e"
+  appId: "1:791215195275:web:10442f350b7e31c285c08e"
 
 };
 
@@ -420,181 +273,120 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-var todosPassageiros = {};
+let excursaoAtual = null;
 
-var excursaoAtualId = null;
+function abrirPagina(id){
 
-// TROCAR PÁGINAS
-
-function trocarPagina(id,menuId){
-
-    document
-    .querySelectorAll('.page')
-    .forEach(function(p){
-
-        p.classList.remove('active');
-
-    });
-
-    document
-    .querySelectorAll('.menu button')
-    .forEach(function(b){
-
-        b.classList.remove('active');
-
-    });
+    document.querySelectorAll('.page')
+    .forEach(p=>p.classList.remove('active'));
 
     document
     .getElementById(id)
     .classList.add('active');
-
-    document
-    .getElementById(menuId)
-    .classList.add('active');
-
-    voltarClientes();
 }
 
-// NOVA EXCURSÃO
+function abrirModalExcursao(){
 
-function novaExcursao(){
+    document
+    .getElementById('modal-excursao')
+    .style.display='flex';
+}
 
-    var destino =
-    prompt('Destino da excursão:');
+function fecharModalExcursao(){
 
-    if(!destino) return;
+    document
+    .getElementById('modal-excursao')
+    .style.display='none';
+}
 
-    var data =
-    prompt('Data da excursão:');
+async function salvarExcursao(){
 
-    if(!data) return;
+    let destino =
+    document.getElementById('destino').value;
 
-    var valor =
-    prompt('Valor da excursão:');
+    let data =
+    document.getElementById('data').value;
 
-    if(!valor) return;
+    let valor =
+    document.getElementById('valor').value;
 
-    db.collection('excursoes').add({
+    await db.collection('excursoes').add({
 
-        destino:destino,
-
-        data:data,
-
+        destino,
+        data,
         valor:Number(valor),
-
         criadoEm:Date.now()
 
     });
 
+    fecharModalExcursao();
+
+    carregarExcursoes();
 }
 
-// CARREGAR EXCURSÕES
+async function carregarExcursoes(){
 
-function carregarExcursoes(){
+    let lista =
+    document.getElementById('lista-excursoes');
 
-    db.collection('excursoes')
+    lista.innerHTML='';
 
+    let snap =
+    await db.collection('excursoes')
     .orderBy('criadoEm','desc')
+    .get();
 
-    .onSnapshot(async function(snapshot){
+    let total=0;
+    let renda=0;
 
-        let lista =
-        document.getElementById('lista-excursoes');
+    snap.forEach(doc=>{
 
-        lista.innerHTML = '';
+        let d = doc.data();
 
-        let total = 0;
+        total++;
+        renda += Number(d.valor||0);
 
-        let renda = 0;
+        lista.innerHTML += `
 
-        if(snapshot.empty){
+        <div class="card">
 
-            lista.innerHTML = `
-            <div class="empty">
+        <h3>${d.destino}</h3>
 
-            Nenhuma excursão cadastrada
+        <p>📅 ${d.data}</p>
 
-            </div>
-            `;
-        }
+        <p>💰 R$ ${d.valor}</p>
 
-        for(const doc of snapshot.docs){
+        <br>
 
-            let d = doc.data();
+        <button
+        class="save-btn"
+        onclick="abrirExcursao('${doc.id}')">
 
-            total++;
+        Abrir Excursão
 
-            renda += Number(d.valor || 0);
+        </button>
 
-            let passageiros =
-            await db.collection('passageiros')
-
-            .where('excursaoId','==',doc.id)
-
-            .get();
-
-            lista.innerHTML += `
-
-            <div
-            class="excursion-card"
-            onclick="abrirExcursao('${doc.id}')">
-
-            <h3>
-
-            📍 ${d.destino}
-
-            </h3>
-
-            <p>
-
-            📅 ${d.data}
-
-            </p>
-
-            <p>
-
-            👥 ${passageiros.size} passageiros
-
-            </p>
-
-            <p>
-
-            💰 R$ ${Number(d.valor).toFixed(2)}
-
-            </p>
-
-            <br>
-
-            <strong style="color:#1565C0">
-
-            Toque para editar →
-
-            </strong>
-
-            </div>
-            `;
-        }
-
-        document
-        .getElementById('total-ativas')
-        .innerText = total;
-
-        let rendaEl =
-        document.getElementById('renda-mes');
-
-        rendaEl.innerText =
-        'R$ ' + renda.toFixed(2);
-
-        rendaEl.className =
-        'info-value ' +
-        (renda < 0 ? 'red' : 'green');
-
+        </div>
+        `;
     });
 
+    document
+    .getElementById('total-excursoes')
+    .innerText = total;
+
+    document
+    .getElementById('renda')
+    .innerText = 'R$ '+renda;
 }
+
 async function abrirExcursao(id){
 
-    excursaoAtualId = id;
+    excursaoAtual = id;
+
+    let lista =
+    document.getElementById('lista-excursoes');
+
+    lista.innerHTML='';
 
     let doc =
     await db.collection('excursoes')
@@ -603,373 +395,138 @@ async function abrirExcursao(id){
 
     let d = doc.data();
 
-    let passageirosSnap =
+    let passageiros =
     await db.collection('passageiros')
-
     .where('excursaoId','==',id)
-
     .get();
 
-    let html = `
+    lista.innerHTML += `
 
-    <div class="passenger-detail">
+    <div class="card">
 
-    <button
-    class="back-btn"
-    onclick="carregarExcursoes()">
+    <h2>${d.destino}</h2>
 
-    ← Voltar
+    <p>📅 ${d.data}</p>
 
-    </button>
-
-    <h2>
-
-    📍 ${d.destino}
-
-    </h2>
-
-    <p>
-
-    <strong>📅 Data:</strong>
-
-    ${d.data}
-
-    </p>
-
-    <p>
-
-    <strong>💰 Valor:</strong>
-
-    R$ ${d.valor}
-
-    </p>
-
-    <p>
-
-    <strong>👥 Passageiros:</strong>
-
-    ${passageirosSnap.size}
-
-    </p>
+    <p>💰 R$ ${d.valor}</p>
 
     <br>
 
     <button
-    class="back-btn"
-    onclick="novoPassageiro()">
+    class="save-btn"
+    onclick="abrirModalPassageiro()">
 
-    ➕ Novo Passageiro
+    Novo Passageiro
 
     </button>
 
-    <br><br>
-
+    </div>
     `;
 
-    if(passageirosSnap.empty){
-
-        html += `
-        <div class="empty">
-
-        Nenhum passageiro cadastrado
-
-        </div>
-        `;
-    }
-
-    passageirosSnap.forEach(function(p){
+    passageiros.forEach(p=>{
 
         let dados = p.data();
 
-        html += `
+        lista.innerHTML += `
 
-        <div class="excursion-card">
+        <div class="card">
 
-        <h3>
+        <h3>${dados.nome}</h3>
 
-        ${dados.nome}
+        <p>CPF: ${dados.cpf}</p>
 
-        </h3>
+        <p>Poltrona: ${dados.poltrona}</p>
 
-        <p>
-
-        💺 Poltrona:
-        ${dados.poltrona || '-'}
-
-        </p>
-
-        <p>
-
-        💰 Entrada:
-        R$ ${dados.entrada || 0}
-
-        </p>
-
-        <p>
-
-        💳 Total:
-        R$ ${dados.valorTotal || 0}
-
-        </p>
+        <p>Total: R$ ${dados.valorTotal}</p>
 
         </div>
         `;
     });
 
-    html += '</div>';
-
-    document
-    .getElementById('lista-excursoes')
-    .innerHTML = html;
 }
 
-// NOVO PASSAGEIRO
+function abrirModalPassageiro(){
 
-async function novoPassageiro(){
+    document
+    .getElementById('modal-passageiro')
+    .style.display='flex';
+}
 
-    let nome =
-    prompt('Nome completo:');
+function fecharModalPassageiro(){
 
-    if(!nome) return;
+    document
+    .getElementById('modal-passageiro')
+    .style.display='none';
+}
 
-    let cpf =
-    prompt('CPF:');
-
-    let rg =
-    prompt('RG:');
-
-    let nascimento =
-    prompt('Data de nascimento:');
-
-    let poltrona =
-    prompt('Número da poltrona:');
-
-    let entrada =
-    prompt('Valor da entrada:');
-
-    let total =
-    prompt('Valor total da excursão:');
-
-    let excursaoDoc =
-    await db.collection('excursoes')
-
-    .doc(excursaoAtualId)
-
-    .get();
-
-    let excursao =
-    excursaoDoc.data();
+async function salvarPassageiro(){
 
     await db.collection('passageiros').add({
 
-        nome:nome,
+        nome:
+        document.getElementById('p-nome').value,
 
-        cpf:cpf,
+        cpf:
+        document.getElementById('p-cpf').value,
 
-        rg:rg,
+        rg:
+        document.getElementById('p-rg').value,
 
-        dataNascimento:nascimento,
+        nascimento:
+        document.getElementById('p-nascimento').value,
 
-        poltrona:poltrona,
+        poltrona:
+        document.getElementById('p-poltrona').value,
 
-        entrada:Number(entrada || 0),
+        entrada:
+        document.getElementById('p-entrada').value,
 
-        valorTotal:Number(total || 0),
+        valorTotal:
+        document.getElementById('p-total').value,
 
-        excursao:excursao.destino,
-
-        excursaoId:excursaoAtualId,
+        excursaoId:excursaoAtual,
 
         criadoEm:Date.now()
 
     });
 
+    fecharModalPassageiro();
+
     carregarClientes();
 
-    abrirExcursao(excursaoAtualId);
-
+    abrirExcursao(excursaoAtual);
 }
 
-// CLIENTES
+async function carregarClientes(){
 
-function carregarClientes(){
+    let lista =
+    document.getElementById('lista-clientes');
 
-    db.collection('passageiros')
+    lista.innerHTML='';
 
+    let snap =
+    await db.collection('passageiros')
     .orderBy('criadoEm','desc')
+    .get();
 
-    .onSnapshot(function(snapshot){
+    snap.forEach(doc=>{
 
-        let lista =
-        document.getElementById('clientes-lista');
+        let p = doc.data();
 
-        lista.innerHTML = '';
+        lista.innerHTML += `
 
-        todosPassageiros = {};
+        <div class="card cliente-item">
 
-        if(snapshot.empty){
+        <h3>${p.nome}</h3>
 
-            lista.innerHTML = `
-            <div class="empty">
+        <p>CPF: ${p.cpf}</p>
 
-            Nenhum cliente cadastrado
+        <p>Poltrona: ${p.poltrona}</p>
 
-            </div>
-            `;
-
-            return;
-        }
-
-        snapshot.forEach(function(doc){
-
-            let p = doc.data();
-
-            todosPassageiros[doc.id] = p;
-
-            lista.innerHTML += `
-
-            <div
-            class="excursion-card"
-            onclick="abrirPassageiro('${doc.id}')">
-
-            <h3>
-
-            👤 ${p.nome}
-
-            </h3>
-
-            <p>
-
-            🚌 ${p.excursao || '-'}
-
-            </p>
-
-            <p>
-
-            💺 Poltrona:
-            ${p.poltrona || '-'}
-
-            </p>
-
-            <p>
-
-            📄 CPF:
-            ${p.cpf || '-'}
-
-            </p>
-
-            </div>
-            `;
-        });
-
+        </div>
+        `;
     });
-
 }
-
-// ABRIR PASSAGEIRO
-
-function abrirPassageiro(id){
-
-    let p =
-    todosPassageiros[id];
-
-    if(!p) return;
-
-    trocarPagina(
-    'clientes',
-    'menu-clientes'
-    );
-
-    document
-    .getElementById('clientes-lista')
-    .style.display = 'none';
-
-    document
-    .getElementById('passageiro-detalhe')
-    .style.display = 'block';
-
-    document
-    .getElementById('passageiro-dados')
-    .innerHTML = `
-
-    <h2>
-
-    ${p.nome}
-
-    </h2>
-
-    <p>
-
-    <strong>CPF:</strong>
-
-    ${p.cpf || '-'}
-
-    </p>
-
-    <p>
-
-    <strong>RG:</strong>
-
-    ${p.rg || '-'}
-
-    </p>
-
-    <p>
-
-    <strong>Nascimento:</strong>
-
-    ${p.dataNascimento || '-'}
-
-    </p>
-
-    <p>
-
-    <strong>Poltrona:</strong>
-
-    ${p.poltrona || '-'}
-
-    </p>
-
-    <p>
-
-    <strong>Entrada:</strong>
-
-    R$ ${p.entrada || 0}
-
-    </p>
-
-    <p>
-
-    <strong>Valor Total:</strong>
-
-    R$ ${p.valorTotal || 0}
-
-    </p>
-
-    <p>
-
-    <strong>Excursão:</strong>
-
-    ${p.excursao || '-'}
-
-    </p>
-    `;
-}
-
-// VOLTAR CLIENTES
-
-function voltarClientes(){
-
-    document
-    .getElementById('clientes-lista')
-    .style.display = 'block';
-
-    document
-    .getElementById('passageiro-detalhe')
-    .style.display = 'none';
-}
-
-// INICIAR
 
 carregarExcursoes();
 
@@ -978,5 +535,4 @@ carregarClientes();
 </script>
 
 </body>
-
 </html>
